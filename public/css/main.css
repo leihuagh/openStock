@@ -1,0 +1,20 @@
+.menu a {
+  padding: 5px;
+}
+
+.Stock {
+  text-align: center;
+}
+
+.list {
+  float: left;
+}
+
+.company {
+  float: right;
+  max-width: 350px;
+}
+
+.graph {
+  background: rgba(36, 224, 211, 0.36);
+}
