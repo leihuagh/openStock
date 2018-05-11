@@ -1,82 +1,100 @@
 import React from 'react';
-import { appleStock } from '@vx/mock-data';
-import { Group } from '@vx/group';
-import { scaleTime, scaleLinear } from '@vx/scale';
-import { AreaClosed } from '@vx/shape';
-import { AxisLeft, AxisBottom } from '@vx/axis';
-import { LinearGradient } from '@vx/gradient';
-import { extent, max } from 'd3-array';
-import { ScaleSVG } from '@vx/responsive';
-
+import * as d3 from "d3";
 
 export default class Graph extends React.Component {
   constructor(props){
     super(props);
+    this.CreateGraph = this.CreateGraph.bind(this)
+  }
+
+  componentDidMount() {
+    this.CreateGraph();
+  }
+
+  // Fetches url and gets information from the url.
+  CreateGraph() {
+    let url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_INTRADAY&symbol=BTC&market=USD&apikey=235YGSKH6SQMLSTA&datatype=csv";
+
+    var svg = d3.select("svg"),
+        margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom,
+        g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    let timeParser = d3.timeParse("%Y-%m-%d %H:%M:%S");
+
+    let x = d3.scaleTime().rangeRound([0, width]);
+    let y = d3.scaleLinear().rangeRound([height, 0]);
+
+    let line = d3.line()
+        .x(function(d) { return x(d["timestamp"])})
+        .y(function(d) { return y(d["price"])});
+
+    let area = d3.area()
+        .x(function(d) { return x(d["timestamp"])})
+        .y0(height)
+        .y1(function(d) { return y(d["price"])});
+
+    let times = [];
+    let prices = [];
+
+    d3.csv(url, function(data) {
+      data["timestamp"] = timeParser(data["timestamp"]);
+      data["price"] = +data["price (USD)"];
+      prices.push(+data["price (USD)"]);
+      times.push(data["timestamp"]);
+      return data;
+    }).then(function(d){
+      // Check for failure to retry.
+      if (d[0]["timestamp"] == null) {
+        this.CreateGraph();
+        return;
+      }
+
+      x.domain(d3.extent(times, function(data) { return data; }));
+      y.domain(d3.extent(prices, function(data) { return data; }));
+
+      g.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .select(".domain")
+      .remove();
+
+      g.append("g")
+      .call(d3.axisLeft(y))
+      .append("text")
+      .attr("fill", "#000")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("text-anchor", "end")
+      .text("Price ($)");
+
+      g.append("path")
+      .datum(d)
+      .attr("class", "area")
+      .attr("d", area);
+      
+      g.append("path")
+      .datum(d)
+      .attr("fill", "none")
+      .attr("stroke", "black")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+    }).catch(error => {
+      console.error("error: ", error);
+      this.CreateGraph();
+      return;
+    });
   }
 
   render() {
-    const data = appleStock;
-    const width = 750;
-    const height = 400;
-    const x = d => new Date(d.date);
-    const y = d => d.close;
-    // Bounds
-    const margin = {
-      top: 60,
-      bottom: 60,
-      left: 80,
-      right: 80,
-    };
-    const xMax = width - margin.left - margin.right;
-    const yMax = height - margin.top - margin.bottom;
-    const xScale = scaleTime({
-      range: [0, xMax],
-      domain: extent(data, x)
-    });
-    const yScale = scaleLinear({
-      range: [yMax, 0],
-      domain: [0, max(data, y)],
-    });
+
     return (
-      <div className='graph'>
-        <ScaleSVG width={width} height={height}>
-          <LinearGradient
-            from='#fbc2eb'
-            to='#00000'
-            id='gradient'
-          />
-
-          <Group top={margin.top} left={margin.left}>
-
-            <AreaClosed
-              data={data}
-              xScale={xScale}
-              yScale={yScale}
-              x={x}
-              y={y}
-              fill={"url(#gradient)"}
-              stroke={""}
-            />
-
-            <AxisLeft
-              scale={yScale}
-              top={0}
-              left={0}
-              label={'Close Price ($)'}
-              stroke={'#1b1a1e'}
-              tickTextFill={'#1b1a1e'}
-            />
-
-            <AxisBottom
-              scale={xScale}
-              top={yMax}
-              label={'Years'}
-              stroke={'#1b1a1e'}
-              tickTextFill={'#1b1a1e'}
-            />
-
-          </Group>
-        </ScaleSVG>
+      <div>
+        <svg width="800" height="500"></svg>
       </div>
     );
   }

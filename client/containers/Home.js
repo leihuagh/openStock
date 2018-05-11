@@ -1,28 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as d3 from "d3";
 
 import Company from '../components/Company.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
 
-
-class Info extends React.Component {
+class Home extends React.Component {
   constructor(props){
     super(props);
   }
 
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-  
   render(){
     return (
-      <div className='Stock'>
+      <div className='Home'>
+        <h1> Microsoft </h1>
         <Graph/>
         <Company/>
         <Statistics/>
@@ -32,4 +23,4 @@ class Info extends React.Component {
 
 }
 
-export default Info
+export default Home

@@ -1,25 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import Search from '../containers/Search.js'
 
-class Header extends React.Component {
+class Company extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <header>
-        <div className='menu'>
-          <Link to='/'>OpenHause</Link>
-          <Link to='/item/:id'>Statistics</Link>
-          <Link to='/items'>Items</Link>
-          <Search/>
-        </div>
-      </header>
+      <div className='header'>
+        <h1> OpenStock </h1>
+      </div>
     );
   }
 }
 
-export default Header
+export default Company

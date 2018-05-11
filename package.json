@@ -29,27 +29,16 @@
     "webpack": "^1.15.0"
   },
   "dependencies": {
-    "@vx/axis": "0.0.136",
-    "@vx/gradient": "0.0.136",
-    "@vx/group": "0.0.136",
-    "@vx/mock-data": "0.0.136",
-    "@vx/responsive": "0.0.136",
-    "@vx/scale": "0.0.136",
-    "@vx/shape": "0.0.136",
-    "axios": "^0.16.2",
+    "d3": "^5.2.0",
     "d3-array": "^1.2.0",
+    "npm": "^6.0.0",
     "postcss": "^6.0.3",
     "postcss-cssnext": "^2.11.0",
     "postcss-loader": "^2.0.6",
     "prop-types": "^15.5.10",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.1",
-    "redux": "^3.7.2",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "vx": "0.0.1",
     "webpack-dev-server": "^1.16.2"
   }
 }
