@@ -23,8 +23,8 @@ class Info extends React.Component {
   render(){
     return (
       <div className='Stock'>
-        <Graph/>
-        <Company/>
+        <Graph name="Microsoft"/>
+        <Company name="Microsoft"/>
         <Statistics/>
       </div>
     );

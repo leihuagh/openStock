@@ -22,12 +22,12 @@ h1 {
 .statistics {
   float: right;
   max-width: 350px;
-  background-color: #dff3e4;
+  background-color: #e0e0e0;
   color: #170f11;
   border-radius: 10px;
-  position: fixed;
-  width: 500px;
-  height: 400px;
+  position: absolute;
+  width: 33%;
+  height: 40%;
   font-size: 24px;
   left: 52%;
   top: 55%;
@@ -36,27 +36,31 @@ h1 {
 .company {
   float: right;
   max-width: 350px;
-  background-color: #dff3e4;
+  background-color: #e0e0e0;
   color: #170f11;
   border-radius: 10px;
-  position: fixed;
-  width: 500px;
-  height: 400px;
+  position: absolute;
+  width: 33%;
+  height: 40%;
   font-size: 24px;
-  left: 32%;
+  left: 20%;
   top: 55%;
+}
+
+h2 {
+  border-bottom: 2px solid #7d817ebb;
 }
 
 body {
   background-color: #171738;
   font-size: 36px;
-  color: #dff3e4;
+  color: #e0e0e0;
   text-align: center;
   font: "sans";
 }
 
 .Stock {
-  position: fixed; /* or absolute */
+  position:relative;
   width: 60vw;
   height: 90vh;
   left: 20%;
@@ -69,10 +73,26 @@ body {
 svg {
   position: fixed; /* or absolute */
   left: 30%;
-  background-color: #dff3e4;
+  background-color: #e0e0e0;
   color: #2e1760;
   border-radius: 10px;
   margin-top: 10px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+span {
+  margin-left: 5px;
+}
+
+.active {
+  color:white;
+}
+
+span:hover {
+  color:white;
 }
 
 .area {

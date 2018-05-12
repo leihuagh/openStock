@@ -10,15 +10,13 @@ class Statistics extends React.Component {
   render() {
     return (
       <div className='statistics'>
-        <h2> Current Price </h2>
+        <h2> Information </h2>
+        <h3> Current Price </h3>
         <p> 10501.13 </p>
-        <br/>
-        <h2> Change </h2>
+        <h3> Change </h3>
         <p> 45% </p>
-        <br/>
-        <h2> Past Hour </h2>
+        <h3> Past Hour </h3>
         <p> -40.32 </p>
-        <br/>
       </div>
     );
   }

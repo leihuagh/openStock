@@ -54,14 +54,19 @@ export default class Graph extends React.Component {
       x.domain(d3.extent(times, function(data) { return data; }));
       y.domain(d3.extent(prices, function(data) { return data; }));
 
+      let xAxis = d3.axisBottom(x);
+      let yAxis = d3.axisLeft(y);
+      xAxis.ticks(6);
+      yAxis.ticks(1);
+
       g.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
+      .call(xAxis)
       .select(".domain")
       .remove();
 
       g.append("g")
-      .call(d3.axisLeft(y))
+      .call(yAxis)
       .append("text")
       .attr("fill", "171738")
       .attr("transform", "rotate(-90)")
@@ -83,7 +88,7 @@ export default class Graph extends React.Component {
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
       .attr("d", line);
-    }).catch(error => {
+  }).catch(error => {
       console.error("error: ", error);
       this.CreateGraph();
       return;
@@ -94,7 +99,18 @@ export default class Graph extends React.Component {
 
     return (
       <div className="Graph">
-        <svg width="800" height="500"></svg>
+        <h2>
+         {this.props.name}
+         <h3>
+          <span className="active">1H</span>
+          <span>1D</span>
+          <span>1W</span>
+          <span>1M</span>
+          <span>1Y</span>
+          <span>ALL</span>
+         </h3>
+        </h2>
+        <svg width="800" height="400"></svg>
       </div>
     );
   }
