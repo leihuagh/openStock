@@ -22,49 +22,59 @@ h1 {
 .statistics {
   float: right;
   max-width: 350px;
-  background-color: white;
-  color: black;
+  background-color: #dff3e4;
+  color: #170f11;
   border-radius: 10px;
   position: fixed;
   width: 500px;
   height: 400px;
   font-size: 24px;
-  left: 50%;
+  left: 52%;
   top: 55%;
 }
 
 .company {
   float: right;
   max-width: 350px;
-  background-color: white;
-  color: black;
+  background-color: #dff3e4;
+  color: #170f11;
   border-radius: 10px;
   position: fixed;
   width: 500px;
   height: 400px;
   font-size: 24px;
-  left: 30%;
+  left: 32%;
   top: 55%;
 }
 
 body {
-  background-color: rgb(29, 29, 31);
+  background-color: #171738;
   font-size: 36px;
-  color: white;
+  color: #dff3e4;
   text-align: center;
   font: "sans";
+}
+
+.Stock {
+  position: fixed; /* or absolute */
+  width: 60vw;
+  height: 90vh;
+  left: 20%;
+  border-radius: 10px;
+  box-shadow: 2px;
+  background-color: #170f11;
+  padding: 20px;
 }
 
 svg {
   position: fixed; /* or absolute */
   left: 30%;
-  background-color: white;
-  box-shadow: 4px 3px;
-  color: rgba(41, 28, 51, 0.89);
+  background-color: #dff3e4;
+  color: #2e1760;
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .area {
-  fill: rgb(29, 29, 31);
+  fill: #4c9f70
 }

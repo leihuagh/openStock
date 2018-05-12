@@ -63,7 +63,7 @@ export default class Graph extends React.Component {
       g.append("g")
       .call(d3.axisLeft(y))
       .append("text")
-      .attr("fill", "#000")
+      .attr("fill", "171738")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", "0.71em")
@@ -78,7 +78,7 @@ export default class Graph extends React.Component {
       g.append("path")
       .datum(d)
       .attr("fill", "none")
-      .attr("stroke", "black")
+      .attr("stroke", "#170f11")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
@@ -93,7 +93,7 @@ export default class Graph extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className="Graph">
         <svg width="800" height="500"></svg>
       </div>
     );
