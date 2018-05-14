@@ -56,8 +56,6 @@ export default class Graph extends React.Component {
 
       let xAxis = d3.axisBottom(x);
       let yAxis = d3.axisLeft(y);
-      xAxis.ticks(6);
-      yAxis.ticks(1);
 
       g.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -102,15 +100,15 @@ export default class Graph extends React.Component {
         <h2>
          {this.props.name}
          <h3>
-          <span className="active">1H</span>
-          <span>1D</span>
-          <span>1W</span>
-          <span>1M</span>
-          <span>1Y</span>
-          <span>ALL</span>
+          <button onClick={this.CreateGraph} id="hour" className="active">1H</button>
+          <button onClick={this.CreateGraph} id="day">1D</button>
+          <button onClick={this.CreateGraph} id="week">1W</button>
+          <button onClick={this.CreateGraph} id="month">1M</button>
+          <button onClick={this.CreateGraph} id="year">1Y</button>
+          <button onClick={this.CreateGraph} id="all">ALL</button>
          </h3>
         </h2>
-        <svg width="800" height="400"></svg>
+        <svg width="800" height="350"></svg>
       </div>
     );
   }

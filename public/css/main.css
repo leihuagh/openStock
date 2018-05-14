@@ -26,10 +26,10 @@ h1 {
   color: #170f11;
   border-radius: 10px;
   position: absolute;
-  width: 33%;
+  width: 22%;
   height: 40%;
   font-size: 24px;
-  left: 52%;
+  left: 55%;
   top: 55%;
 }
 
@@ -40,10 +40,10 @@ h1 {
   color: #170f11;
   border-radius: 10px;
   position: absolute;
-  width: 33%;
+  width: 50%;
   height: 40%;
   font-size: 24px;
-  left: 20%;
+  left: 22.5%;
   top: 55%;
 }
 
@@ -83,16 +83,27 @@ h3 {
   font-size: 24px;
 }
 
-span {
-  margin-left: 5px;
-}
-
 .active {
   color:white;
 }
 
-span:hover {
+button:hover {
   color:white;
+}
+
+button {
+  color: grey;
+  background-color: transparent;
+  background-repeat:no-repeat;
+  border: none;
+  outline: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+button:focus {
+  outline:0;
 }
 
 .area {
