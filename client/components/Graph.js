@@ -5,6 +5,8 @@ export default class Graph extends React.Component {
   constructor(props){
     super(props);
     this.createGraph = this.createGraph.bind(this)
+    this.changeActive = this.changeActive.bind(this)
+
   }
 
   componentDidMount() {
@@ -19,9 +21,7 @@ export default class Graph extends React.Component {
 
   // Fetches url and gets information from the url.
   // TODO: Refactor for different graphs and move fetch into Info.js.
-  createGraph() {
-    console.log(this.props);
-    
+  createGraph() {    
     var svg = d3.select("svg"),
         margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = +svg.attr("width") - margin.left - margin.right,
@@ -78,6 +78,15 @@ export default class Graph extends React.Component {
   }
 
 
+  changeActive(id) {
+    let buttons = document.getElementsByTagName("button");
+  
+    for(let i =0; i < buttons.length; i++) {
+      buttons.item(i).classList.remove("active");
+    }
+    
+    document.getElementById(id).classList.add("active");
+  }
   /* 
     Pass id to method to change active.
     onClick should also change the rate of the graph.
@@ -90,12 +99,12 @@ export default class Graph extends React.Component {
          {this.props.name}
         </h2>
         <h3>
-          <button onClick={this.createGraph} id="hour">1H</button>
-          <button onClick={this.createGraph} id="day" className="active">1D</button>
-          <button onClick={this.createGraph} id="week">1W</button>
-          <button onClick={this.createGraph} id="month">1M</button>
-          <button onClick={this.createGraph} id="year">1Y</button>
-          <button onClick={this.createGraph} id="all">ALL</button>
+          <button onClick={() => this.changeActive('hour')} id="hour">1H</button>
+          <button onClick={() => this.changeActive('day')} id="day" className="active">1D</button>
+          <button onClick={() => this.changeActive('week')} id="week">1W</button>
+          <button onClick={() => this.changeActive('month')} id="month">1M</button>
+          <button onClick={() => this.changeActive('year')} id="year">1Y</button>
+          <button onClick={() => this.changeActive('all')} id="all">ALL</button>
          </h3>
         <svg width="800" height="350"></svg>
       </div>

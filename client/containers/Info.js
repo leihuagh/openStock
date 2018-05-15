@@ -34,7 +34,6 @@ class Info extends React.Component {
     let parent = this;
     let prices = [];
     let times = [];
-    let info = [];
 
     d3.csv(url, function(data) {
       data["timestamp"] = timeParser(data["timestamp"]);
@@ -44,7 +43,6 @@ class Info extends React.Component {
       return data;
     }).then(function(d){
       // Check for failure to retry.
-      console.log(d);
       if (d[0]["timestamp"] == null) {
         this.makeApiCall();
         return;
