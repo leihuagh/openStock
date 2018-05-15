@@ -40,7 +40,6 @@ class Info extends React.Component {
     }).then(function(data) {
       return data.json()
     }).then(function(json) {
-      console.log(json);
       parent.setState({
         companyFetched: true,
         companyInfo: json["description"]
@@ -48,7 +47,7 @@ class Info extends React.Component {
     });
   }
 
-  makeApiCall(frequency = "1m") {
+  makeApiCall(frequency = "1y") {
     let url = "https://api.iextrading.com/1.0/stock/aapl/chart/" + frequency;
     let timeParser = d3.timeParse("%Y-%m-%d");
 
@@ -62,7 +61,6 @@ class Info extends React.Component {
 
     d3.json(url).then(function(d){
       // Check for failure to retry.
-      console.log(d);
       if (d[0]["date"] == null) {
         this.makeApiCall();
         return;
@@ -86,10 +84,9 @@ class Info extends React.Component {
       this.makeApiCall();
       return;
     });
-    console.log(prices);
-    console.log(times);
   }
 
+  // TODO: Replace loading with spinners in component.
   render(){
     return (
       <div className='Stock'>

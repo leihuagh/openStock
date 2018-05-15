@@ -10,7 +10,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className='home'>
         <h1> OpenStock </h1>
