@@ -95,7 +95,7 @@ class Info extends React.Component {
       <div className='Stock'>
         {this.state.fetched ? <Graph name="MSFT" times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
         {this.state.companyFetched ? <Company name="Microsoft" info={this.state.companyInfo}/> : <p> Loading... </p> }
-        {this.state.fetched ? <Statistics price={Math.floor(this.state.prices[0] * 100) / 100}/> : <p> Loading... </p>}
+        {this.state.fetched ? <Statistics prices={this.state.prices} interval ="Month"/> : <p> Loading... </p>}
       </div>
     );
   }
