@@ -12,7 +12,7 @@ class Statistics extends React.Component {
       <div className='statistics'>
         <h2> Information </h2>
         <h3> Current Price </h3>
-        <p> 10501.13 </p>
+        <p> {this.props.price} </p>
         <h3> Change </h3>
         <p> 45% </p>
         <h3> Past Hour </h3>

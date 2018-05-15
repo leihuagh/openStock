@@ -32,13 +32,13 @@ export default class Graph extends React.Component {
     let y = d3.scaleLinear().rangeRound([height, 0]);
 
     let line = d3.line()
-        .x(function(d) { return x(d["timestamp"])})
-        .y(function(d) { return y(d["price"])});
+        .x(function(d) { return x(d["date"])})
+        .y(function(d) { return y(d["close"])});
 
     let area = d3.area()
-        .x(function(d) { return x(d["timestamp"])})
+        .x(function(d) { return x(d["date"])})
         .y0(height)
-        .y1(function(d) { return y(d["price"])});
+        .y1(function(d) { return y(d["close"])});
 
     x.domain(d3.extent(this.props.times, function(data) { return data; }));
     y.domain(d3.extent(this.props.prices, function(data) { return data; }));
