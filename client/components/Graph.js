@@ -4,24 +4,29 @@ import * as d3 from "d3";
 export default class Graph extends React.Component {
   constructor(props){
     super(props);
-    this.CreateGraph = this.CreateGraph.bind(this)
+    this.createGraph = this.createGraph.bind(this)
   }
 
   componentDidMount() {
-    this.CreateGraph();
+    this.createGraph();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps != this.props) {
+      this.createGraph();
+    }
   }
 
   // Fetches url and gets information from the url.
-  CreateGraph() {
-    let url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_INTRADAY&symbol=BTC&market=USD&apikey=235YGSKH6SQMLSTA&datatype=csv";
-
+  // TODO: Refactor for different graphs and move fetch into Info.js.
+  createGraph() {
+    console.log(this.props);
+    
     var svg = d3.select("svg"),
         margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = +svg.attr("width") - margin.left - margin.right,
         height = +svg.attr("height") - margin.top - margin.bottom,
         g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    let timeParser = d3.timeParse("%Y-%m-%d %H:%M:%S");
 
     let x = d3.scaleTime().rangeRound([0, width]);
     let y = d3.scaleLinear().rangeRound([height, 0]);
@@ -35,79 +40,63 @@ export default class Graph extends React.Component {
         .y0(height)
         .y1(function(d) { return y(d["price"])});
 
-    let times = [];
-    let prices = [];
+    x.domain(d3.extent(this.props.times, function(data) { return data; }));
+    y.domain(d3.extent(this.props.prices, function(data) { return data; }));
 
-    d3.csv(url, function(data) {
-      data["timestamp"] = timeParser(data["timestamp"]);
-      data["price"] = +data["price (USD)"];
-      prices.push(+data["price (USD)"]);
-      times.push(data["timestamp"]);
-      return data;
-    }).then(function(d){
-      // Check for failure to retry.
-      if (d[0]["timestamp"] == null) {
-        this.CreateGraph();
-        return;
-      }
+    let xAxis = d3.axisBottom(x);
+    let yAxis = d3.axisLeft(y);
 
-      x.domain(d3.extent(times, function(data) { return data; }));
-      y.domain(d3.extent(prices, function(data) { return data; }));
+    g.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+    .select(".domain")
+    .remove();
 
-      let xAxis = d3.axisBottom(x);
-      let yAxis = d3.axisLeft(y);
+    g.append("g")
+    .call(yAxis)
+    .append("text")
+    .attr("fill", "171738")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "0.71em")
+    .attr("text-anchor", "end")
+    .text("Price ($)");
 
-      g.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .select(".domain")
-      .remove();
-
-      g.append("g")
-      .call(yAxis)
-      .append("text")
-      .attr("fill", "171738")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-      .text("Price ($)");
-
-      g.append("path")
-      .datum(d)
-      .attr("class", "area")
-      .attr("d", area);
-      
-      g.append("path")
-      .datum(d)
-      .attr("fill", "none")
-      .attr("stroke", "#170f11")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
-  }).catch(error => {
-      console.error("error: ", error);
-      this.CreateGraph();
-      return;
-    });
+    g.append("path")
+    .datum(this.props.d)
+    .attr("class", "area")
+    .attr("d", area);
+    
+    g.append("path")
+    .datum(this.props.d)
+    .attr("fill", "none")
+    .attr("stroke", "#170f11")
+    .attr("stroke-linejoin", "round")
+    .attr("stroke-linecap", "round")
+    .attr("stroke-width", 1.5)
+    .attr("d", line);
   }
 
+
+  /* 
+    Pass id to method to change active.
+    onClick should also change the rate of the graph.
+  */
   render() {
 
     return (
       <div className="Graph">
         <h2>
          {this.props.name}
-         <h3>
-          <button onClick={this.CreateGraph} id="hour" className="active">1H</button>
-          <button onClick={this.CreateGraph} id="day">1D</button>
-          <button onClick={this.CreateGraph} id="week">1W</button>
-          <button onClick={this.CreateGraph} id="month">1M</button>
-          <button onClick={this.CreateGraph} id="year">1Y</button>
-          <button onClick={this.CreateGraph} id="all">ALL</button>
-         </h3>
         </h2>
+        <h3>
+          <button onClick={this.createGraph} id="hour">1H</button>
+          <button onClick={this.createGraph} id="day" className="active">1D</button>
+          <button onClick={this.createGraph} id="week">1W</button>
+          <button onClick={this.createGraph} id="month">1M</button>
+          <button onClick={this.createGraph} id="year">1Y</button>
+          <button onClick={this.createGraph} id="all">ALL</button>
+         </h3>
         <svg width="800" height="350"></svg>
       </div>
     );
