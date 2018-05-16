@@ -24,7 +24,6 @@ export default class Graph extends React.Component {
   }
 
   // Fetches url and gets information from the url.
-  // TODO: Refactor for different graphs and move fetch into Info.js.
   createGraph() {    
     var svg = d3.select("svg"),
         margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -91,9 +90,7 @@ export default class Graph extends React.Component {
   render() {
 
     return (
-      <div className="Graph">
-        <svg width="800" height="350"></svg>
-      </div>
+      <svg width="800" height="350"></svg>
     );
   }
 }

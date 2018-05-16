@@ -18,6 +18,7 @@ class Info extends React.Component {
       fetched: false,
       companyFetched: false,
       companyInfo: "",
+      companyName: "",
       interval: "",
       times: [],
       prices: [],
@@ -44,7 +45,8 @@ class Info extends React.Component {
     }).then(function(json) {
       parent.setState({
         companyFetched: true,
-        companyInfo: json["description"]
+        companyInfo: json["description"],
+        companyName: json["companyName"]
       })
     });
   }
@@ -122,7 +124,7 @@ class Info extends React.Component {
           <button onClick={() => this.changeActive('5y')} id="5y">5Y</button>
          </h3>
         {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
-        {this.state.companyFetched ? <Company name="Microsoft" info={this.state.companyInfo}/> : <p> Loading... </p> }
+        {this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }
         {this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}
       </div>
     );
