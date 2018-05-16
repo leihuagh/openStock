@@ -1,5 +1,6 @@
 h1 {
   margin-left: 10px;
+  text-align: left;
 }
 
 .menu a {
@@ -14,49 +15,48 @@ h1 {
   float: left;
 }
 
-.header {
-  font-size: 16px;
-  text-align: left;
-}
-
 .statistics {
   float: right;
   max-width: 350px;
-  background-color: #dff3e4;
+  background-color: #e0e0e0;
   color: #170f11;
   border-radius: 10px;
-  position: fixed;
-  width: 500px;
-  height: 400px;
+  position: absolute;
+  width: 22%;
+  height: 40%;
   font-size: 24px;
-  left: 52%;
+  left: 55%;
   top: 55%;
 }
 
 .company {
   float: right;
   max-width: 350px;
-  background-color: #dff3e4;
+  background-color: #e0e0e0;
   color: #170f11;
   border-radius: 10px;
-  position: fixed;
-  width: 500px;
-  height: 400px;
-  font-size: 24px;
-  left: 32%;
+  position: absolute;
+  width: 50%;
+  height: 40%;
+  font-size: 20px;
+  left: 22.5%;
   top: 55%;
+}
+
+h2 {
+  border-bottom: 2px solid #7d817ebb;
 }
 
 body {
   background-color: #171738;
   font-size: 36px;
-  color: #dff3e4;
+  color: #e0e0e0;
   text-align: center;
   font: "sans";
 }
 
 .Stock {
-  position: fixed; /* or absolute */
+  position:relative;
   width: 60vw;
   height: 90vh;
   left: 20%;
@@ -69,10 +69,37 @@ body {
 svg {
   position: fixed; /* or absolute */
   left: 30%;
-  background-color: #dff3e4;
+  background-color: #e0e0e0;
   color: #2e1760;
   border-radius: 10px;
   margin-top: 10px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.active {
+  color:white;
+}
+
+button:hover {
+  color:white;
+}
+
+button {
+  color: grey;
+  background-color: transparent;
+  background-repeat:no-repeat;
+  border: none;
+  outline: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+button:focus {
+  outline:0;
 }
 
 .area {

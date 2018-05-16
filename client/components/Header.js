@@ -9,9 +9,9 @@ class Company extends React.Component {
 
   render() {
     return (
-      <div className='header'>
-        <h1> OpenStock </h1>
-      </div>
+      <header>
+        <Link to='/'> <h1>OpenStock</h1> </Link>
+      </header>
     );
   }
 }
