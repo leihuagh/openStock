@@ -4,9 +4,12 @@ import * as d3 from "d3";
 export default class Graph extends React.Component {
   constructor(props){
     super(props);
-    this.createGraph = this.createGraph.bind(this)
-    this.changeActive = this.changeActive.bind(this)
-
+    this.state = {
+      prices: [],
+      times: []
+    }
+    this.createGraph = this.createGraph.bind(this);
+    this.removeGraph = this.removeGraph.bind(this);
   }
 
   componentDidMount() {
@@ -15,6 +18,7 @@ export default class Graph extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps != this.props) {
+      this.removeGraph();
       this.createGraph();
     }
   }
@@ -77,35 +81,17 @@ export default class Graph extends React.Component {
     .attr("d", line);
   }
 
-
-  changeActive(id) {
-    let buttons = document.getElementsByTagName("button");
-  
-    for(let i =0; i < buttons.length; i++) {
-      buttons.item(i).classList.remove("active");
-    }
-    
-    document.getElementById(id).classList.add("active");
+  removeGraph() {
+    var svg = d3.select("svg"),
+    margin = {top: 20, right: 20, bottom: 30, left: 50},
+    g = svg.select("g");
+    g.remove();
   }
-  /* 
-    Pass id to method to change active.
-    onClick should also change the rate of the graph.
-  */
+
   render() {
 
     return (
       <div className="Graph">
-        <h2>
-         {this.props.name}
-        </h2>
-        <h3>
-          <button onClick={() => this.changeActive('hour')} id="hour">1H</button>
-          <button onClick={() => this.changeActive('day')} id="day" className="active">1D</button>
-          <button onClick={() => this.changeActive('week')} id="week">1W</button>
-          <button onClick={() => this.changeActive('month')} id="month">1M</button>
-          <button onClick={() => this.changeActive('year')} id="year">1Y</button>
-          <button onClick={() => this.changeActive('all')} id="all">ALL</button>
-         </h3>
         <svg width="800" height="350"></svg>
       </div>
     );
