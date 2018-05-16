@@ -1,26 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import Company from '../components/Company.js';
-import Graph from '../components/Graph.js';
-import Statistics from '../components/Statistics.js';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Search from '../components/Search.js'
+import { Link } from 'react-router-dom'
 
 class Home extends React.Component {
-  constructor(props){
+
+  constructor(props) {
     super(props);
   }
 
-  render(){
+  render() {
     return (
-      <div className='Home'>
-        <h1> Microsoft </h1>
-        <Graph/>
-        <Company/>
-        <Statistics/>
+      <div className='home'>
+        <Link to='/'> <h1>OpenStock</h1> </Link>
+        <Search className='homeSearch'/>
       </div>
     );
   }
-
 }
 
 export default Home
+
