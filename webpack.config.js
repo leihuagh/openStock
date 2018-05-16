@@ -18,6 +18,10 @@ module.exports = {
       { test: /\.css$/, loaders: [ 'style-loader', 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss?sourceMap&sourceComments', ], }
     ]
   },
+    devServer: {
+    historyApiFallback: true,    
+    publicPath: '/'
+  },
   postcss: () => {
   return [
     /* eslint-disable global-require */

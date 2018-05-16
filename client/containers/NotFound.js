@@ -1,19 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Search from '../components/Search.js'
 import { Link } from 'react-router-dom'
 
-class Company extends React.Component {
+class NotFound extends React.Component {
+
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <header>
-        <Link to='/'> <h1>OpenStock</h1> </Link>
-      </header>
+      <div className='Error'>
+        <h1>Error</h1>
+      </div>
     );
   }
 }
 
-export default Company
+export default NotFound
+
