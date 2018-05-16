@@ -1,5 +1,6 @@
 h1 {
   margin-left: 10px;
+  text-align: left;
 }
 
 .menu a {
@@ -12,11 +13,6 @@ h1 {
 
 .list {
   float: left;
-}
-
-.header {
-  font-size: 16px;
-  text-align: left;
 }
 
 .statistics {

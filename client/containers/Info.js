@@ -49,7 +49,7 @@ class Info extends React.Component {
     });
   }
 
-  makeApiCall(frequency = "1y") {
+  makeApiCall(frequency = "1d") {
     let url = "https://api.iextrading.com/1.0/stock/msft/chart/" + frequency;
     let timeParser = d3.timeParse("%Y-%m-%d");
 
