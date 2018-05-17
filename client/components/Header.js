@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-class Company extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -10,10 +10,12 @@ class Company extends React.Component {
   render() {
     return (
       <header>
-        <Link to='/'> <h1>OpenStock</h1> </Link>
+        <Link to='/' className='logo-btn'>OpenStock</Link>
+        <Link to='/Stocks' className='stock-btn'>Stocks</Link>
+        <Link to='/Stocks/:API' className='stock-btn'>API</Link>
       </header>
     );
   }
 }
 
-export default Company
+export default Header

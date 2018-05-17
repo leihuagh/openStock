@@ -11,6 +11,7 @@ class Search extends React.Component {
     return (
       <div className='search'>
         <input type="text" placeholder="Search.."/>
+        <button><i className="fas fa-search hi"></i></button>
       </div>
     );
   }
