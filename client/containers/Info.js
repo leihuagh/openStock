@@ -72,8 +72,13 @@ class Info extends React.Component {
       
       for (let i = 0; i < d.length; i++) {
         if (frequency == "1d") {
+          if (d[i]["marketAverage"] == -1) {
+            d[i]["close"] = (d[i]["high"] + d[i]["low"]) / 2;
+          } else {
+            d[i]["close"] = d[i]["marketAverage"];
+          }
+
           d[i]["date"] = timeParser(d[i]["date"] + d[i]["minute"]);
-          d[i]["close"] = d[i]["marketAverage"];
         } else {
           d[i]["date"] = timeParser(d[i]["date"]);
         }
