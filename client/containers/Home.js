@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Search from '../components/Search.js'
 import { Link } from 'react-router-dom'
+
+import Search from '../components/Search.js'
 
 class Home extends React.Component {
 
@@ -12,8 +13,8 @@ class Home extends React.Component {
   render() {
     return (
       <div className='home'>
-        <Link to='/'> <h1>OpenStock</h1> </Link>
-        <Search className='homeSearch'/>
+        <h1>OpenStock</h1>
+        <Search/>
       </div>
     );
   }

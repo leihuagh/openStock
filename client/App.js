@@ -15,7 +15,6 @@ export default class App extends React.Component {
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/Stocks' component={Stocks}/>
-            <Route exact path='/Stocks/:symbol' component={Info}/>
             <Route component={NotFound} />
           </Switch>
         </div>

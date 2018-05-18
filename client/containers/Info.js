@@ -38,7 +38,7 @@ class Info extends React.Component {
 
   getCompanyInfo() {
     let parent = this;
-    fetch('https://api.iextrading.com/1.0/stock/MSFT/company', {
+    fetch("https://api.iextrading.com/1.0/stock/"  + this.props.symbol + "/company", {
       method: "GET",
     }).then(function(data) {
       return data.json()
@@ -52,7 +52,7 @@ class Info extends React.Component {
   }
 
   makeApiCall(frequency = "1d") {
-    let url = "https://api.iextrading.com/1.0/stock/msft/chart/" + frequency;
+    let url = "https://api.iextrading.com/1.0/stock/" +  this.props.symbol + "/chart/" + frequency;
     let timeParser = d3.timeParse("%Y-%m-%d");
 
     if (frequency == "1d") {
@@ -118,7 +118,7 @@ class Info extends React.Component {
     return (
       <div className='Stock'>
         <h2>
-         MSFT
+         {this.props.symbol.toUpperCase()}
         </h2>
         <h3>
           <button onClick={() => this.changeActive('1d')} id="1d" className="active">1D</button>

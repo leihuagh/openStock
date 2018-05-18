@@ -11,6 +11,59 @@ h1 {
   text-align: center;
 }
 
+header {
+  text-align: left;
+  margin: 5px;
+}
+
+header a {
+  color: white;
+  margin: 5px;
+}
+
+header a:hover {
+  text-decoration: none;
+}
+
+.home {
+  left: 50%;
+  margin: 200px;
+}
+
+.home h1 {
+  text-align: center;
+  position: relative;
+  font-size: 64px;    
+  margin: 20px;
+}
+
+.search {
+  width: 500px;
+  background-color: white;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -240px;  
+}
+
+.search button:hover {
+  color: black;
+}
+
+input {
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+/* .logo-btn {
+}
+
+.stock-btn {
+
+} */
+
 .list {
   float: left;
 }
