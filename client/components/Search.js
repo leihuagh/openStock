@@ -10,8 +10,10 @@ class Search extends React.Component {
 
     return (
       <div className='search'>
-        <input type="text" placeholder="Search.."/>
-        <button><i className="fas fa-search hi"></i></button>
+        <form action="/Stocks" method="get">
+          <input type="text" name="symbol" placeholder="Enter Symbol.." id="submit"/>
+          <button><i className="fas fa-search"></i></button>
+        </form>
       </div>
     );
   }

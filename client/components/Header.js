@@ -12,7 +12,6 @@ class Header extends React.Component {
       <header>
         <Link to='/' className='logo-btn'>OpenStock</Link>
         <Link to='/Stocks' className='stock-btn'>Stocks</Link>
-        <Link to='/Stocks/:API' className='stock-btn'>API</Link>
       </header>
     );
   }
