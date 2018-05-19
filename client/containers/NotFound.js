@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Search from '../components/Search.js'
 import { Link } from 'react-router-dom'
 
-import Search from '../components/Search.js'
-
-class Home extends React.Component {
+class NotFound extends React.Component {
 
   constructor(props) {
     super(props);
@@ -12,13 +11,13 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className='home'>
-        <h1>OpenStock</h1>
-        <Search/>
+      <div className='Error'>
+        <h2>Error 404</h2>
+        <p> Page Not Found </p>
       </div>
     );
   }
 }
 
-export default Home
+export default NotFound
 
