@@ -71,17 +71,19 @@ class Info extends React.Component {
       }
       
       for (let i = 0; i < d.length; i++) {
-        if (frequency == "1d") {
-          if (d[i]["marketAverage"] == -1) {
-            d[i]["close"] = (d[i]["high"] + d[i]["low"]) / 2;
-          } else {
-            d[i]["close"] = d[i]["marketAverage"];
-          }
+        if (d[i]["numberOfTrades"] == 0) {
+          d.splice(i, 1);
+          i--;
+          continue;
+        }
 
+        if (frequency == "1d") {
+          d[i]["close"] = d[i]["marketAverage"];
           d[i]["date"] = timeParser(d[i]["date"] + d[i]["minute"]);
         } else {
           d[i]["date"] = timeParser(d[i]["date"]);
         }
+        
         times.push(d[i]["date"]);
         prices.push(d[i]["close"]);
       }
@@ -96,7 +98,9 @@ class Info extends React.Component {
 
     }).catch(error => {
       console.error("error: ", error);
-      this.makeApiCall(frequency);
+      if (parseInt(error.message) == 404) {
+        // Write not found.
+      }
       return;
     });
   }
