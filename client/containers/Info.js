@@ -71,7 +71,7 @@ class Info extends React.Component {
       }
       
       for (let i = 0; i < d.length; i++) {
-        if (d[i]["numberOfTrades"] == 0) {
+        if (d[i]["marketNumberOfTrades"] == 0 || d[i]["marketAverage"] == -1) {
           d.splice(i, 1);
           i--;
           continue;
@@ -83,7 +83,7 @@ class Info extends React.Component {
         } else {
           d[i]["date"] = timeParser(d[i]["date"]);
         }
-        
+
         times.push(d[i]["date"]);
         prices.push(d[i]["close"]);
       }

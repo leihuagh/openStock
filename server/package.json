@@ -1,0 +1,21 @@
+{
+  "name": "openstock-server",
+  "version": "1.0.0",
+  "description": "OpenStock Backend Server and API",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^2.0.1",
+    "expressjs": "^1.0.1",
+    "npm": "^6.0.1",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.8",
+    "uuid": "^3.2.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
