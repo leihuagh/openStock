@@ -47,15 +47,7 @@ export default class Graph extends React.Component {
     y.domain(d3.extent(this.props.prices, function(data) { return data; }));
 
     let xAxis = d3.axisBottom(x);
-    let yAxis = d3.axisLeft(y);
-
-    g.append("line")        
-    .style("stroke", "white")  
-    .style("display", "none")
-    .attr("x1", 0)     
-    .attr("y1", 0)      
-    .attr("x2", 0)     
-    .attr("y2", height);    
+    let yAxis = d3.axisLeft(y); 
 
     g.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -66,22 +58,7 @@ export default class Graph extends React.Component {
     g.append("path")
     .datum(this.props.d)
     .attr("class", "area")
-    .attr("d", area)
-    .on("mouseover", function(d) {
-      const xCoordinate = d3.mouse(this)[0];
-      svg.select("line")
-      .style("display", "");    
-    })
-    .on("mousemove", function(d) {
-      const xCoordinate = d3.mouse(this)[0];
-      svg.select("line")
-      .attr("x1", xCoordinate)     
-      .attr("x2", xCoordinate);  
-    })
-    .on("mouseout", function(d) {
-      svg.select("line")
-      .style("display", "none");
-    });
+    .attr("d", area);
 
     g.append("path")
     .datum(this.props.d)
@@ -90,22 +67,16 @@ export default class Graph extends React.Component {
     .attr("stroke-linejoin", "round")
     .attr("stroke-linecap", "round")
     .attr("stroke-width", 1.5)
-    .attr("d", line)
-    .on("mouseover", function(d) {
-      const xCoordinate = d3.mouse(this)[0];
-      svg.select("line")
-      .style("display", "");    
-    })
-    .on("mousemove", function(d) {
-      const xCoordinate = d3.mouse(this)[0];
-      svg.select("line")
-      .attr("x1", xCoordinate)     
-      .attr("x2", xCoordinate);  
-    })
-    .on("mouseout", function(d) {
-      svg.select("line")
-      .style("display", "none");
-    });
+    .attr("d", line);
+
+    g.append("line")
+    .attr("class", "hover-line")        
+    .style("stroke", "white")  
+    .style("display", "none")
+    .attr("x1", 0)     
+    .attr("y1", 0)      
+    .attr("x2", 0)     
+    .attr("y2", height);   
 
     g.append("g")
     .call(yAxis)
@@ -117,6 +88,23 @@ export default class Graph extends React.Component {
     .text("Price ($)");
 
     svg.selectAll('text').attr("fill", "white");
+
+    svg.on("mouseover", function(d) {
+      const xCoordinate = d3.mouse(this)[0];
+      svg.select(".hover-line")
+      .style("display", "");
+    })
+    .on("mousemove", function(d) {
+      const xCoordinate = d3.mouse(this)[0];
+      svg.select(".hover-line")
+      .attr("x1", xCoordinate- margin.left)     
+      .attr("x2", xCoordinate- margin.left);  
+    })
+    .on("mouseout", function(d) {
+      svg.select(".hover-line")
+      .style("display", "none");
+    });
+
   }
 
   removeGraph() {
