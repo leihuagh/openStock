@@ -78,6 +78,16 @@ export default class Graph extends React.Component {
     .attr("x2", 0)     
     .attr("y2", height);   
 
+    g.append("rect")
+    .attr("class", "hover-rect")
+    .style("stroke", "white")
+    .style("fill", "rgba(224, 224, 224, 0.178)")  
+    .style("display", "none")
+    .attr("x", 0)     
+    .attr("y", 0)      
+    .attr("width", 100)     
+    .attr("height", height);   
+       
     g.append("g")
     .call(yAxis)
     .append("text")
@@ -96,15 +106,35 @@ export default class Graph extends React.Component {
     })
     .on("mousemove", function(d) {
       const xCoordinate = d3.mouse(this)[0];
-      svg.select(".hover-line")
-      .attr("x1", xCoordinate- margin.left)     
-      .attr("x2", xCoordinate- margin.left);  
+      if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
+        svg.select(".hover-line")
+        .attr("x1", xCoordinate- margin.left)     
+        .attr("x2", xCoordinate- margin.left);  
+      } 
     })
     .on("mouseout", function(d) {
       svg.select(".hover-line")
       .style("display", "none");
-    });
-
+    })
+    .call(d3.drag()
+      .on("start", function(){
+        const xCoordinate = d3.mouse(this)[0];
+        svg.select(".hover-rect")
+        .style("display", "")
+        .attr("x", xCoordinate - margin.left)     
+        .attr("width", 0);   
+      })
+      .on("drag", function(){
+        const xCoordinate = d3.mouse(this)[0];  
+        const x = svg.select(".hover-rect").attr("x");
+        const w =  Math.abs(x - (xCoordinate - margin.left));
+        if (w > 0) {
+          svg.select(".hover-rect")
+          .attr("width", w);   
+        } else {
+          
+        }  
+      }));
   }
 
   removeGraph() {
