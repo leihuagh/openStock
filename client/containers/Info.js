@@ -123,29 +123,45 @@ class Info extends React.Component {
     if (this.state.hasError) {
       return (
         <div className='Stock'>
-        <h2>
-        {this.props.symbol.toUpperCase()}
-        </h2>
-        <p> Failed to Load </p>
+          <div className="col"></div>
+          <div className="col">
+            <h2>
+              {this.props.symbol.toUpperCase()}
+            </h2>
+            <p> Failed to Load </p>
+          </div>
+          <div className="col"></div>
       </div>
       );
     } else {
       return (
-        <div className='Stock'>
-          <h2>
-           {this.props.symbol.toUpperCase()}
-          </h2>
-          <h3>
-            <button onClick={() => this.changeActive('1d')} id="1d" className="active">1D</button>
-            <button onClick={() => this.changeActive('1m')} id="1m">1M</button>
-            <button onClick={() => this.changeActive('3m')} id="3m">3M</button>
-            <button onClick={() => this.changeActive('6m')} id="6m">6M</button>
-            <button onClick={() => this.changeActive('1y')} id="1y">1Y</button>
-            <button onClick={() => this.changeActive('5y')} id="5y">5Y</button>
-           </h3>
-          {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
-          {this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }
-          {this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}
+        <div>
+          <div className="row">
+            <div className="col"></div>
+            <div className="col">
+              <div className='Stock'>
+                <h2>
+                 {this.state.companyName} ({this.props.symbol.toUpperCase()})
+                </h2>
+                <h3>
+                  <button onClick={() => this.changeActive('1d')} id="1d" className="active">1D</button>
+                  <button onClick={() => this.changeActive('1m')} id="1m">1M</button>
+                  <button onClick={() => this.changeActive('3m')} id="3m">3M</button>
+                  <button onClick={() => this.changeActive('6m')} id="6m">6M</button>
+                  <button onClick={() => this.changeActive('1y')} id="1y">1Y</button>
+                  <button onClick={() => this.changeActive('5y')} id="5y">5Y</button>
+                </h3>
+                {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
+              </div>
+            </div>
+            <div className="col"></div>
+          </div>
+          <div className="row">
+            <div className="col-sm-3"></div>
+            <div className="col-sm-3">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }</div>
+            <div className="col-sm-3">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
+            <div className="col-sm-3"></div>          
+          </div>
         </div>
       );
     }

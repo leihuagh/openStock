@@ -55,16 +55,6 @@ export default class Graph extends React.Component {
     .select(".domain")
     .remove();
 
-    g.append("g")
-    .call(yAxis)
-    .append("text")
-    .attr("fill", "171738")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", "0.71em")
-    .attr("text-anchor", "end")
-    .text("Price ($)");
-
     g.append("path")
     .datum(this.props.d)
     .attr("class", "area")
@@ -73,11 +63,24 @@ export default class Graph extends React.Component {
     g.append("path")
     .datum(this.props.d)
     .attr("fill", "none")
-    .attr("stroke", "#170f11")
+    .attr("stroke", "#043a1b")
     .attr("stroke-linejoin", "round")
     .attr("stroke-linecap", "round")
     .attr("stroke-width", 1.5)
-    .attr("d", line);
+    .attr("d", line)
+    // .on("mouseover", handleMouseOver)
+    // .on("mouseout", handleMouseOut);
+
+    g.append("g")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "0.71em")
+    .attr("text-anchor", "end")
+    .text("Price ($)");
+
+    svg.selectAll('text').attr("fill", "white");
   }
 
   removeGraph() {
