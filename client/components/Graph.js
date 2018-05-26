@@ -120,7 +120,6 @@ export default class Graph extends React.Component {
         percentage = 100;
       }
       const index = Math.trunc(props.prices.length * percentage/100);
-      console.log(index);
       if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
         svg.select(".hover-line")
           .attr("x1", xCoordinate- margin.left)     
@@ -128,7 +127,7 @@ export default class Graph extends React.Component {
         svg.select(".hover-text")
           .attr("x", xCoordinate - margin.left)     
           .attr("y", yCoordinate - margin.top)
-          .text(props.prices[index]); 
+          .text("$" + props.prices[index]); 
       } 
     })
     .on("mouseout", function() {

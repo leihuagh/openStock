@@ -157,4 +157,5 @@ button:focus {
 
 .hover-text {
   cursor: default;
+  background-color: white;
 }
