@@ -6,7 +6,7 @@ Because I thought it would be cool to put my own implementation of the standard 
 In the future I hope to make it a stock simulation in which users can make purchases of stocks.
 Making it a fun and educational APP for people to use for their leisure.
 # Technologies Used
-* ReactJS
+* ReactJS: ReactRouterv4
 * NodeJS: ExpressJS BCrypt
 * PostGreSQL
 * HTML, CSS, Javascript

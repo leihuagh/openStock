@@ -49,6 +49,7 @@ export default class Graph extends React.Component {
     let xAxis = d3.axisBottom(x);
     let yAxis = d3.axisLeft(y); 
     let props = this.props;
+    let pastX;
 
     g.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -97,6 +98,14 @@ export default class Graph extends React.Component {
     .attr("x", 0)     
     .attr("y", 0)      
 
+    g.append("text")
+    .attr("class", "hover-difference")
+    .style("stroke", "white")
+    .style("fill", "rgba(224, 224, 224, 0.178)")  
+    .style("display", "none")
+    .attr("x", 0)     
+    .attr("y", 0)      
+
     g.append("g")
     .call(yAxis)
     .append("text")
@@ -137,19 +146,42 @@ export default class Graph extends React.Component {
     .call(d3.drag()
       .on("start", function(){
         const xCoordinate = d3.mouse(this)[0];
+        const yCoordinate = d3.mouse(this)[1];
+        let percentage = Math.trunc(((xCoordinate - margin.left)  / width) * 100);
+
+        if (percentage > 100) {
+          percentage = 100;
+        }
+
+        pastX = Math.trunc(props.prices.length * percentage/100);
+
         if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
+          svg.select(".hover-difference")
+          .style("display", "none")
           svg.select(".hover-rect")
           .style("display", "")
           .attr("x", xCoordinate - margin.left)     
-          .attr("width", 0);   
+          .attr("width", 0);
         }
       })
       .on("drag", function(){
-        const xCoordinate = d3.mouse(this)[0];  
+        const xCoordinate = d3.mouse(this)[0];
+        const yCoordinate = d3.mouse(this)[1];  
         const x = svg.select(".hover-rect").attr("x");
         const w =  Math.abs(x - (xCoordinate - margin.left));
+        let percentage = Math.trunc(((xCoordinate - margin.left)  / width) * 100);
+        if (percentage > 100) {
+          percentage = 100;
+        }
+        let index = Math.trunc(props.prices.length * percentage/100);
         if (+w + +x < width) {
-          svg.select(".hover-rect").attr("width", w);   
+          svg.select(".hover-rect").attr("width", w);
+          
+          svg.select(".hover-difference")
+          .style("display", "")
+          .attr("x", xCoordinate - margin.left)     
+          .attr("y", yCoordinate - margin.top)
+          .text("$" + (props.prices[index] - props.prices[pastX]));       
         }
       }));
   }
