@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import Search from './Search';
 
 class Header extends React.Component {
   constructor(props) {
@@ -11,7 +12,9 @@ class Header extends React.Component {
     return (
       <header>
         <Link to='/' className='logo-btn'>OpenStock</Link>
-        {/* <Link to='/Stocks' className='stock-btn'>Stocks</Link> */}
+        {/* <div className='search-header'>
+          <Search/>
+        </div> */}
       </header>
     );
   }
