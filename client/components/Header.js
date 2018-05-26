@@ -15,7 +15,6 @@ class Header extends React.Component {
         {/* <div className='search-header'>
           <Search/>
         </div> */}
-        {/* <Link to='/Stocks' className='stock-btn'>Stocks</Link> */}
       </header>
     );
   }

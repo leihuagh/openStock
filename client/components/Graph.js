@@ -66,11 +66,12 @@ export default class Graph extends React.Component {
     .datum(this.props.d)
     .attr("fill", "none")
     .attr("stroke", "#043a1b")
+
     .attr("stroke-linejoin", "round")
     .attr("stroke-linecap", "round")
     .attr("stroke-width", 1.5)
     .attr("d", line);
-
+    
     g.append("line")
     .attr("class", "hover-line")        
     .style("stroke", "white")  

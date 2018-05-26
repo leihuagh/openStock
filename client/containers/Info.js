@@ -84,7 +84,7 @@ class Info extends React.Component {
         } else {
           d[i]["date"] = timeParser(d[i]["date"]);
         }
-
+          
         times.push(d[i]["date"]);
         prices.push(d[i]["close"]);
       }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Info from './Info.js'
 import StocksStatistics from './StockStatistics.js'
 
+
 class Stocks extends React.Component {
 
   constructor(props) {
