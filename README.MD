@@ -11,3 +11,8 @@ Making it a fun and educational APP for people to use for their leisure.
 * PostGreSQL
 * HTML, CSS, Javascript
 * IEX EXCHANGE Developer API
+# Demo 
+<p align="center">
+  <img src="./public/demo-search.gif" width="350"/>
+  <img src="./public/demo-ui.gif" width="350"/>
+</p>
