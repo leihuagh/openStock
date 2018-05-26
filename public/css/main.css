@@ -154,3 +154,7 @@ button:focus {
   position: relative;
   left: 70%;
 }
+
+.hover-text {
+  cursor: default;
+}

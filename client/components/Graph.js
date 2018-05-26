@@ -48,6 +48,7 @@ export default class Graph extends React.Component {
 
     let xAxis = d3.axisBottom(x);
     let yAxis = d3.axisLeft(y); 
+    let props = this.props;
 
     g.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -87,7 +88,15 @@ export default class Graph extends React.Component {
     .attr("y", 0)      
     .attr("width", 100)     
     .attr("height", height);   
-       
+
+    g.append("text")
+    .attr("class", "hover-text")
+    .style("stroke", "white")
+    .style("fill", "rgba(224, 224, 224, 0.178)")  
+    .style("display", "none")
+    .attr("x", 0)     
+    .attr("y", 0)      
+
     g.append("g")
     .call(yAxis)
     .append("text")
@@ -99,20 +108,32 @@ export default class Graph extends React.Component {
 
     svg.selectAll('text').attr("fill", "white");
 
-    svg.on("mouseover", function(d) {
+    svg.on("mouseover", function() {
       svg.select(".hover-line").style("display", "");
+      svg.select(".hover-text").style("display", "");
     })
-    .on("mousemove", function(d) {
+    .on("mousemove", function() {
       const xCoordinate = d3.mouse(this)[0];
+      const yCoordinate = d3.mouse(this)[1];
+      let percentage = Math.trunc(((xCoordinate - margin.left)  / width) * 100);
+      if (percentage > 100) {
+        percentage = 100;
+      }
+      const index = Math.trunc(props.prices.length * percentage/100);
+      console.log(index);
       if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
         svg.select(".hover-line")
-        .attr("x1", xCoordinate- margin.left)     
-        .attr("x2", xCoordinate- margin.left);  
+          .attr("x1", xCoordinate- margin.left)     
+          .attr("x2", xCoordinate- margin.left);
+        svg.select(".hover-text")
+          .attr("x", xCoordinate - margin.left)     
+          .attr("y", yCoordinate - margin.top)
+          .text(props.prices[index]); 
       } 
     })
-    .on("mouseout", function(d) {
-      svg.select(".hover-line")
-      .style("display", "none");
+    .on("mouseout", function() {
+      svg.select(".hover-line").style("display", "none");
+      svg.select(".hover-text").style("display", "none");
     })
     .call(d3.drag()
       .on("start", function(){
