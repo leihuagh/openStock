@@ -100,9 +100,7 @@ export default class Graph extends React.Component {
     svg.selectAll('text').attr("fill", "white");
 
     svg.on("mouseover", function(d) {
-      const xCoordinate = d3.mouse(this)[0];
-      svg.select(".hover-line")
-      .style("display", "");
+      svg.select(".hover-line").style("display", "");
     })
     .on("mousemove", function(d) {
       const xCoordinate = d3.mouse(this)[0];
@@ -119,21 +117,20 @@ export default class Graph extends React.Component {
     .call(d3.drag()
       .on("start", function(){
         const xCoordinate = d3.mouse(this)[0];
-        svg.select(".hover-rect")
-        .style("display", "")
-        .attr("x", xCoordinate - margin.left)     
-        .attr("width", 0);   
+        if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
+          svg.select(".hover-rect")
+          .style("display", "")
+          .attr("x", xCoordinate - margin.left)     
+          .attr("width", 0);   
+        }
       })
       .on("drag", function(){
         const xCoordinate = d3.mouse(this)[0];  
         const x = svg.select(".hover-rect").attr("x");
         const w =  Math.abs(x - (xCoordinate - margin.left));
-        if (w > 0) {
-          svg.select(".hover-rect")
-          .attr("width", w);   
-        } else {
-          
-        }  
+        if (+w + +x < width) {
+          svg.select(".hover-rect").attr("width", w);   
+        }
       }));
   }
 
