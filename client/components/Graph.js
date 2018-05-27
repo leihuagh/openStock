@@ -130,6 +130,7 @@ export default class Graph extends React.Component {
         percentage = 100;
       }
       const index = Math.trunc(props.prices.length * percentage/100);
+      const currentPrice = Math.round((props.prices[index])*100)/100;
       if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
         svg.select(".hover-line")
           .attr("x1", xCoordinate- margin.left)     
@@ -174,7 +175,8 @@ export default class Graph extends React.Component {
         if (percentage > 100) {
           percentage = 100;
         }
-        let index = Math.trunc(props.prices.length * percentage/100);
+        const index = Math.trunc(props.prices.length * percentage/100);
+        const diff = Math.round((props.prices[index] - props.prices[pastX])*100)/100;
         if (+w + +x < width) {
           svg.select(".hover-rect").attr("width", w);
           
@@ -182,7 +184,7 @@ export default class Graph extends React.Component {
           .style("display", "")
           .attr("x", xCoordinate - margin.left)     
           .attr("y", yCoordinate - margin.top)
-          .text("$" + (props.prices[index] - props.prices[pastX]));       
+          .text("$" + diff);       
         }
       }));
   }
