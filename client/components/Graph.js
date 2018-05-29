@@ -138,7 +138,7 @@ export default class Graph extends React.Component {
         svg.select(".hover-text")
           .attr("x", xCoordinate - margin.left)     
           .attr("y", yCoordinate - margin.top)
-          .text("$" + props.prices[index]); 
+          .text("$" + currentPrice); 
       } 
     })
     .on("mouseout", function() {
