@@ -122,16 +122,20 @@ class Info extends React.Component {
   render(){
     if (this.state.hasError) {
       return (
-        <div className='Stock'>
-          <div className="col"></div>
-          <div className="col">
-            <h2>
-              {this.props.symbol.toUpperCase()}
-            </h2>
-            <p> Failed to Load </p>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col"></div>
+            <div className="col">
+              <div className='Stock'>
+                <h2>
+                  {this.props.symbol.toUpperCase()}
+                </h2>
+                <p> Failed to Load </p>
+              </div>
+            </div>
+            <div className="col"></div>
           </div>
-          <div className="col"></div>
-      </div>
+        </div>
       );
     } else {
       return (
