@@ -56,7 +56,7 @@ input {
 }
 
 .error {
-  width: 500px;
+  width: 600px;
   height: 300px;
   background-color: #0e090b;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -163,3 +163,24 @@ button:focus {
   background-color: white;
 }
 
+.signin {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  background-color: #0e090b;
+  width: 300px;
+  height: 600px;
+  padding: 20px;
+}
+
+.signin input {
+  background-color: white;
+  margin: 30px;
+}
+
+.signin button {
+  border-style: solid;
+  margin-top: 20px; 
+}
+
+footer a{
+  color: #e0e0e0;
+}
