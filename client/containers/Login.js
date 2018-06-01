@@ -14,7 +14,7 @@ class Login extends React.Component {
           <div className="col signin">
               <div>
                 <form action="localhost:3000/Users/login" method="post">
-                  <h2>OpenStock</h2> 
+                  <h2>Login</h2> 
                   Username:
                   <input type="text" name="username"/>
                   Password:                  

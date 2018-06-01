@@ -141,7 +141,7 @@ class Info extends React.Component {
       return (
         <div>
           <div className="row">
-            <div className="col"></div>
+            <div className="col-sm-3"></div>
             <div className="col">
               <div className='Stock'>
                 <h2>
@@ -158,13 +158,15 @@ class Info extends React.Component {
                 {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
               </div>
             </div>
-            <div className="col"></div>
+            <div className="col-sm-3"></div>
           </div>
           <div className="row">
             <div className="col-sm-3"></div>
             <div className="col-sm-3">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }</div>
             <div className="col-sm-3">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
             <div className="col-sm-3"></div>          
+          </div>
+          <div className="row">      
           </div>
         </div>
       );
