@@ -9,18 +9,21 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
         <div className="row">
           <div className="col"></div>
-          <div className="col">
-            <div className='signin'>
-              <form action="https://localhost:3000/Users/Signin" method="post">
-                <input type="text" name="username"/>
-                <input type="text" name="userPassword" type="password"/>
-              </form>
+          <div className="col signin">
+              <div>
+                <form action="localhost:3000/Users/login" method="post">
+                  <h2>OpenStock</h2> 
+                  Username:
+                  <input type="text" name="username"/>
+                  Password:                  
+                  <input type="text" name="userPassword" type="password"/>
+                  <br/> 
+                  <button>Login</button>
+                </form>
+              </div>
             </div>
-            </div>
-          </div>
           <div className="col"></div>
         </div>
     );

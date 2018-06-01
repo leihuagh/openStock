@@ -20,7 +20,7 @@ userRouter.get('/', function (req, res) {
 });
 
 // Route to Login.
-userRouter.get('/Signin', function (req, res) {
+userRouter.get('/login', function (req, res) {
     User.find({
         where: {
           userName: req.query.userName
@@ -52,7 +52,7 @@ userRouter.post('/register', function(req, res) {
           });
     } else {
         // Send what parameter is misssing.
-        
+
     }
 });
 
