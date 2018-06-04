@@ -13,7 +13,7 @@ class Statistics extends React.Component {
     const percentChange = priceChange / firstPrice
 
     return (
-      <div className='statistics'>
+      <div>
         <h2> Information </h2>
         <h3> Current Price </h3>
         <p> ${Math.floor(lastPrice * 100) / 100} </p>

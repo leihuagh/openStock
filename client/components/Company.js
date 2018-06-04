@@ -8,7 +8,7 @@ class Company extends React.Component {
 
   render() {
     return (
-      <div className='company'>
+      <div>
         <h2> {this.props.name} </h2>
         <p> {this.props.info} </p>
       </div>

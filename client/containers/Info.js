@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 import * as d3 from "d3";
 
 import Company from '../components/Company.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
+import Spinner from '../components/Spinner.js';
 
 
 class Info extends React.Component {
@@ -13,17 +15,21 @@ class Info extends React.Component {
     this.changeActive = this.changeActive.bind(this);
     this.makeApiCall = this.makeApiCall.bind(this);
     this.getCompanyInfo = this.getCompanyInfo.bind(this);
+    this.getPeers = this.getPeers.bind(this);
 
     this.state = {
       fetched: false,
       companyFetched: false,
+      peersFetched: false,
       hasError: false,
       companyInfo: "",
       companyName: "",
       interval: "",
       times: [],
       prices: [],
-      d: []
+      d: [],
+      peers: [],
+      peerData: {}
     }
 
   }
@@ -31,10 +37,69 @@ class Info extends React.Component {
   componentDidMount() {
     this.makeApiCall();
     this.getCompanyInfo();
+    this.getPeers();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.symbol != this.props.symbol) {
+      this.setState({
+        fetched: false,
+        companyFetched: false,
+        peersFetched: false,
+        hasError: false,
+        companyInfo: "",
+        companyName: "",
+        interval: "",
+        times: [],
+        prices: [],
+        d: [],
+        peers: [],
+        peerData: {}
+      });
+      this.makeApiCall();
+      this.changeActive('1d');
+      this.getCompanyInfo();
+      this.getPeers();
+    }
   }
 
   componentWillUnmount() {
 
+  }
+
+  getPeers() {
+    let parent = this;
+    let symbols;
+    // API CALL
+    // Seperate symbols with a,b,c
+    // https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb&types=quote,chart&range=1d
+    // Get Rivals and batch call.
+    fetch("https://api.iextrading.com/1.0/stock/"  + this.props.symbol + "/peers", {
+      method: "GET",
+    }).then(function(data) {
+      return data.json()
+    }).then(function(json) {
+      let s = "";
+      symbols = json;
+
+      json.forEach(symbol => {
+        s += (symbol + ",")
+      });
+
+      fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=' + s + '&types=quote', {
+        method: 'GET',
+      }).then(function(data) {
+        return data.json()
+      }).then(function(json) {
+        parent.setState({
+          peersFetched: true,
+          peers: symbols,
+          peerData: json
+        });
+      })
+    }).catch(function(){
+      this.getPeers();
+    });
   }
 
   getCompanyInfo() {
@@ -118,28 +183,37 @@ class Info extends React.Component {
     this.makeApiCall(id);
   }
 
-  // TODO: Replace loading with spinners in component.
-  render(){
+  render() {
+    const peers = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer) =>
+      <Link to={"/Stocks?symbol=" + peer.toString()} className="col peers-card" key={peer.toString()}>
+          <span> {peer} </span>
+          <br/>
+          {this.state.peerData[peer] === undefined ? <span>NULL</span>  : <span>${this.state.peerData[peer]['quote']['latestPrice']}</span>}
+      </Link>
+    );
+      
     if (this.state.hasError) {
       return (
-        <div className='Stock'>
-          <div className="col"></div>
-          <div className="col">
-            <h2>
-              {this.props.symbol.toUpperCase()}
-            </h2>
-            <p> Failed to Load </p>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col"></div>
+            <div className="col Stock">
+              <h2>
+                {this.props.symbol.toUpperCase()}
+              </h2>
+              <p> Failed to Load </p>
+            </div>
+            <div className="col"></div>
           </div>
-          <div className="col"></div>
-      </div>
+        </div>
       );
     } else {
       return (
         <div>
           <div className="row">
-            <div className="col"></div>
-            <div className="col">
-              <div className='Stock'>
+            <div className="col-sm-3"></div>
+            <div className="col Stock">
+              <div className=''>
                 <h2>
                  {this.state.companyName} ({this.props.symbol.toUpperCase()})
                 </h2>
@@ -151,16 +225,29 @@ class Info extends React.Component {
                   <button onClick={() => this.changeActive('1y')} id="1y">1Y</button>
                   <button onClick={() => this.changeActive('5y')} id="5y">5Y</button>
                 </h3>
-                {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
+                {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <Spinner/>}
               </div>
             </div>
-            <div className="col"></div>
+            <div className="col-sm-3"></div>
           </div>
           <div className="row">
             <div className="col-sm-3"></div>
-            <div className="col-sm-3">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }</div>
-            <div className="col-sm-3">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
-            <div className="col-sm-3"></div>          
+            <div className="col-sm-3 company">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <Spinner/>}</div>
+            <div className="col-sm-2 statistics">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <Spinner/>}</div>
+            <div className="col-sm-4"></div>          
+          </div>
+          <div className="row">
+            <div className="col-3"></div>
+            {this.state.peersFetched ? 
+              <div className="col-6">
+                <div className='row'>
+                  {peers} 
+                </div>
+              </div> : 
+              <div className='col'>
+                <Spinner/> 
+              </div>}
+            <div className="col-3"></div>
           </div>
         </div>
       );

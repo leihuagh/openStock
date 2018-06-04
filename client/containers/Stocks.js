@@ -16,7 +16,7 @@ class Stocks extends React.Component {
     const symbol = params.get('symbol');
     const hasSymbol = symbol != null && symbol != "";
     return (
-      <div className='Stocks'>
+      <div className='Stocks container-fluid'>
         {hasSymbol ? <Info symbol={symbol}/> : <StocksStatistics/>}
       </div>
     );

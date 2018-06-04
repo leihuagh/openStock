@@ -6,6 +6,9 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+// JWT
+const jwt = require('express-jwt');
+
 // User Model
 const User = require('../models/UserModel');
 
@@ -16,11 +19,29 @@ userRouter.get('/', function (req, res) {
     });
 });
 
+// Route to Login.
+userRouter.get('/login', function (req, res) {
+    User.find({
+        where: {
+          userName: req.query.userName
+        }
+    }).then(user => {
+        let found = bcrypt.compareSync(req.query.userPassword, user.password); // true
+        if (found) {
+            // Send a JWT to user.
+        }
+        res.send(found);
+    }).catch(function(err) {
+      console.log(err);
+      res.send("User does not exist.");  
+    });
+});
+
 // Post to register.
 userRouter.post('/register', function(req, res) {
     // Check token for validation.
     // Register Account and add to server.
-    if (req.query.userName != null || req.query.password != null) {
+    if (req.query.userName != null && req.query.password != null) {
         // Salt password and send.
         bcrypt.hash( req.query.password, saltRounds, function(err, hash) {
             // Store hash in your password DB.
@@ -30,6 +51,7 @@ userRouter.post('/register', function(req, res) {
             });
           });
     } else {
+        // Send what parameter is misssing.
 
     }
 });

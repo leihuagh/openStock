@@ -12,7 +12,13 @@ const Stock = sequelize.define('stock', {
     symbol: {
       type: Sequelize.STRING
     },
+    sector: {
+      type: Sequelize.STRING
+    },
     description: { 
+      type: Sequelize.STRING
+    },
+    exchange: {
       type: Sequelize.STRING
     }
   });

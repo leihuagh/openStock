@@ -27,8 +27,8 @@ export default class Graph extends React.Component {
   createGraph() {    
     var svg = d3.select("svg"),
         margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom,
+        width = 800 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom,
         g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     let x = d3.scaleTime().rangeRound([0, width]);
@@ -130,6 +130,7 @@ export default class Graph extends React.Component {
         percentage = 100;
       }
       const index = Math.trunc(props.prices.length * percentage/100);
+      const currentPrice = Math.round((props.prices[index])*100)/100;
       if (xCoordinate - margin.left  > 0 && xCoordinate - margin.left < 730) {
         svg.select(".hover-line")
           .attr("x1", xCoordinate- margin.left)     
@@ -137,7 +138,7 @@ export default class Graph extends React.Component {
         svg.select(".hover-text")
           .attr("x", xCoordinate - margin.left)     
           .attr("y", yCoordinate - margin.top)
-          .text("$" + props.prices[index]); 
+          .text("$" + currentPrice); 
       } 
     })
     .on("mouseout", function() {
@@ -174,7 +175,8 @@ export default class Graph extends React.Component {
         if (percentage > 100) {
           percentage = 100;
         }
-        let index = Math.trunc(props.prices.length * percentage/100);
+        const index = Math.trunc(props.prices.length * percentage/100);
+        const diff = Math.round((props.prices[index] - props.prices[pastX])*100)/100;
         if (+w + +x < width) {
           svg.select(".hover-rect").attr("width", w);
           
@@ -182,7 +184,7 @@ export default class Graph extends React.Component {
           .style("display", "")
           .attr("x", xCoordinate - margin.left)     
           .attr("y", yCoordinate - margin.top)
-          .text("$" + (props.prices[index] - props.prices[pastX]));       
+          .text("$" + diff);       
         }
       }));
   }
@@ -197,7 +199,9 @@ export default class Graph extends React.Component {
   render() {
 
     return (
-      <svg width="800" height="350"></svg>
+      <div className='svg-container'>
+        <svg className='svg-content' preserveAspectRatio="xMinYMin meet" viewBox="0 0 800 350"></svg>
+      </div>
     );
   }
 }
