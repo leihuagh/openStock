@@ -5,6 +5,7 @@ import * as d3 from "d3";
 import Company from '../components/Company.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
+import CardGraph from '../components/CardGraph.js';
 
 
 class Info extends React.Component {
@@ -13,17 +14,21 @@ class Info extends React.Component {
     this.changeActive = this.changeActive.bind(this);
     this.makeApiCall = this.makeApiCall.bind(this);
     this.getCompanyInfo = this.getCompanyInfo.bind(this);
+    this.getPeers = this.getPeers.bind(this);
 
     this.state = {
       fetched: false,
       companyFetched: false,
+      peersFetched: false,
       hasError: false,
       companyInfo: "",
       companyName: "",
       interval: "",
       times: [],
       prices: [],
-      d: []
+      d: [],
+      peers: [],
+      peerData: {}
     }
 
   }
@@ -31,10 +36,43 @@ class Info extends React.Component {
   componentDidMount() {
     this.makeApiCall();
     this.getCompanyInfo();
+    this.getPeers();
   }
 
   componentWillUnmount() {
 
+  }
+
+  getPeers() {
+    let parent = this;
+    let symbols;
+    // API CALL
+    // Seperate symbols with a,b,c
+    // https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb&types=quote,chart&range=1d
+    // Get Rivals and batch call.
+    fetch("https://api.iextrading.com/1.0/stock/"  + this.props.symbol + "/peers", {
+      method: "GET",
+    }).then(function(data) {
+      return data.json()
+    }).then(function(json) {
+      let s = "";
+      symbols = json;
+      json.forEach(symbol => {
+        s += (symbol + ",")
+      });
+
+      fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=' + s + '&types=quote', {
+        method: 'GET',
+      }).then(function(data) {
+        return data.json()
+      }).then(function(json) {
+        parent.setState({
+          peersFetched: true,
+          peers: symbols,
+          peerData: json
+        });
+      })
+    });
   }
 
   getCompanyInfo() {
@@ -119,7 +157,15 @@ class Info extends React.Component {
   }
 
   // TODO: Replace loading with spinners in component.
-  render(){
+  render() {
+    console.log(this.state.peerData['KMB'])
+    const peers = this.state.peers.map((peer) =>
+      <div className="col peers-card" key={peer.toString()}>
+          <p>{ peer }</p>
+          <p> ${this.state.peerData[peer]['quote']['latestPrice']}</p>
+      </div>
+    );
+      
     if (this.state.hasError) {
       return (
         <div className="container-fluid">
@@ -166,7 +212,15 @@ class Info extends React.Component {
             <div className="col-sm-3">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
             <div className="col-sm-3"></div>          
           </div>
-          <div className="row">      
+          <div className="row">
+            <div className="col-3"></div>
+            {this.state.peersFetched ? 
+              <div className="col">
+                <div className='row'>
+                  {peers} 
+                </div>
+              </div> : <div className='col'> Loading... </div> }
+            <div className="col-3"></div>
           </div>
         </div>
       );

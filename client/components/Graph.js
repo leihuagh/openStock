@@ -200,8 +200,7 @@ export default class Graph extends React.Component {
 
     return (
       <div className='svg-container'>
-        <svg className='svg-content' preserveAspectRatio="xMinYMin meet" viewBox="0 0 800 350"
-></svg>
+        <svg className='svg-content' preserveAspectRatio="xMinYMin meet" viewBox="0 0 800 350"></svg>
       </div>
     );
   }
