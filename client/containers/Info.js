@@ -39,6 +39,28 @@ class Info extends React.Component {
     this.getPeers();
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.symbol != this.props.symbol) {
+      this.setState({
+        fetched: false,
+        companyFetched: false,
+        peersFetched: false,
+        hasError: false,
+        companyInfo: "",
+        companyName: "",
+        interval: "",
+        times: [],
+        prices: [],
+        d: [],
+        peers: [],
+        peerData: {}
+      });
+      this.makeApiCall();
+      this.getCompanyInfo();
+      this.getPeers();
+    }
+  }
+
   componentWillUnmount() {
 
   }
