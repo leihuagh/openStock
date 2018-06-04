@@ -57,6 +57,7 @@ class Info extends React.Component {
         peerData: {}
       });
       this.makeApiCall();
+      this.changeActive('1d');
       this.getCompanyInfo();
       this.getPeers();
     }
@@ -80,7 +81,7 @@ class Info extends React.Component {
     }).then(function(json) {
       let s = "";
       symbols = json;
-      console.log(json);
+
       json.forEach(symbol => {
         s += (symbol + ",")
       });
@@ -90,7 +91,6 @@ class Info extends React.Component {
       }).then(function(data) {
         return data.json()
       }).then(function(json) {
-        console.log(json);
         parent.setState({
           peersFetched: true,
           peers: symbols,
@@ -184,7 +184,6 @@ class Info extends React.Component {
   }
 
   render() {
-    console.log(this.state.peerData)
     const peers = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer) =>
       <Link to={"/Stocks?symbol=" + peer.toString()} className="col peers-card" key={peer.toString()}>
           <span> {peer} </span>
