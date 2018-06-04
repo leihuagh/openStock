@@ -8,7 +8,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
+    "csv-parser": "^1.12.1",
+    "d3": "^5.4.0",
+    "express-jwt": "^5.3.1",
     "expressjs": "^1.0.1",
+    "node-fetch": "^2.1.2",
     "npm": "^6.0.1",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",

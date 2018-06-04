@@ -11,15 +11,17 @@ class NotFound extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="col"></div>
-        <div className="col">
-          <div className='Error'>
-            <h2>Error 404</h2>
-            <p> Page Not Found </p>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col"></div>
+          <div className="col">
+            <div className='error'>
+              <h2>404</h2>
+              <p> Page Not Found </p>
+            </div>
           </div>
+          <div className="col"></div>
         </div>
-        <div className="col"></div>
       </div>
     );
   }
