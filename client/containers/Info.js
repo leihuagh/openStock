@@ -215,8 +215,8 @@ class Info extends React.Component {
         <div>
           <div className="row">
             <div className="col-sm-3"></div>
-            <div className="col">
-              <div className='Stock'>
+            <div className="col Stock">
+              <div className=''>
                 <h2>
                  {this.state.companyName} ({this.props.symbol.toUpperCase()})
                 </h2>
@@ -235,9 +235,9 @@ class Info extends React.Component {
           </div>
           <div className="row">
             <div className="col-sm-3"></div>
-            <div className="col-sm-3">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }</div>
-            <div className="col-sm-3">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
-            <div className="col-sm-3"></div>          
+            <div className="col-sm-3 company">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }</div>
+            <div className="col-sm-2 statistics">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
+            <div className="col-sm-4"></div>          
           </div>
           <div className="row">
             <div className="col-3"></div>

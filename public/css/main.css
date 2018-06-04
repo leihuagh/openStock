@@ -72,9 +72,6 @@ input {
   font-size: 24px;
   margin: 30px;
   padding: 20px;
-  max-width: 350px;
-  min-width: 250px;
-  height: 350px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
@@ -84,9 +81,6 @@ input {
   font-size: 20px;
   margin: 30px;
   padding: 20px;
-  max-width: 400px;
-  min-width: 250px;
-  height: 350px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   white-space: nowrap;
   overflow: auto;
