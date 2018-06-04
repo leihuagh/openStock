@@ -6,6 +6,7 @@ import * as d3 from "d3";
 import Company from '../components/Company.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
+import Spinner from '../components/Spinner.js';
 
 
 class Info extends React.Component {
@@ -182,7 +183,6 @@ class Info extends React.Component {
     this.makeApiCall(id);
   }
 
-  // TODO: Replace loading with spinners in component.
   render() {
     console.log(this.state.peerData)
     const peers = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer) =>
@@ -198,13 +198,11 @@ class Info extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col"></div>
-            <div className="col">
-              <div className='Stock'>
-                <h2>
-                  {this.props.symbol.toUpperCase()}
-                </h2>
-                <p> Failed to Load </p>
-              </div>
+            <div className="col Stock">
+              <h2>
+                {this.props.symbol.toUpperCase()}
+              </h2>
+              <p> Failed to Load </p>
             </div>
             <div className="col"></div>
           </div>
@@ -228,15 +226,15 @@ class Info extends React.Component {
                   <button onClick={() => this.changeActive('1y')} id="1y">1Y</button>
                   <button onClick={() => this.changeActive('5y')} id="5y">5Y</button>
                 </h3>
-                {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <p>Loading...</p>}
+                {this.state.fetched ? <Graph times={this.state.times} prices={this.state.prices} d={this.state.d}/> : <Spinner/>}
               </div>
             </div>
             <div className="col-sm-3"></div>
           </div>
           <div className="row">
             <div className="col-sm-3"></div>
-            <div className="col-sm-3 company">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <p> Loading... </p> }</div>
-            <div className="col-sm-2 statistics">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <p> Loading... </p>}</div>
+            <div className="col-sm-3 company">{this.state.companyFetched ? <Company name={this.state.companyName} info={this.state.companyInfo}/> : <Spinner/>}</div>
+            <div className="col-sm-2 statistics">{this.state.fetched ? <Statistics prices={this.state.prices} interval ={this.state.interval}/> : <Spinner/>}</div>
             <div className="col-sm-4"></div>          
           </div>
           <div className="row">
@@ -246,7 +244,10 @@ class Info extends React.Component {
                 <div className='row'>
                   {peers} 
                 </div>
-              </div> : <p> Loading... </p> }
+              </div> : 
+              <div className='col'>
+                <Spinner/> 
+              </div>}
             <div className="col-3"></div>
           </div>
         </div>
