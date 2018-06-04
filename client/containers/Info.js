@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 import * as d3 from "d3";
 
 import Company from '../components/Company.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
-import CardGraph from '../components/CardGraph.js';
 
 
 class Info extends React.Component {
@@ -57,6 +57,7 @@ class Info extends React.Component {
     }).then(function(json) {
       let s = "";
       symbols = json;
+      console.log(json);
       json.forEach(symbol => {
         s += (symbol + ",")
       });
@@ -66,6 +67,7 @@ class Info extends React.Component {
       }).then(function(data) {
         return data.json()
       }).then(function(json) {
+        console.log(json);
         parent.setState({
           peersFetched: true,
           peers: symbols,
@@ -158,12 +160,13 @@ class Info extends React.Component {
 
   // TODO: Replace loading with spinners in component.
   render() {
-    console.log(this.state.peerData['KMB'])
-    const peers = this.state.peers.map((peer) =>
-      <div className="col peers-card" key={peer.toString()}>
-          <p>{ peer }</p>
-          <p> ${this.state.peerData[peer]['quote']['latestPrice']}</p>
-      </div>
+    console.log(this.state.peerData)
+    const peers = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer) =>
+      <Link to={"/Stocks?symbol=" + peer.toString()} className="col peers-card" key={peer.toString()}>
+          <span> {peer} </span>
+          <br/>
+          <span>${this.state.peerData[peer]['quote']['latestPrice']}</span>
+      </Link>
     );
       
     if (this.state.hasError) {
@@ -215,11 +218,11 @@ class Info extends React.Component {
           <div className="row">
             <div className="col-3"></div>
             {this.state.peersFetched ? 
-              <div className="col">
+              <div className="col-6">
                 <div className='row'>
                   {peers} 
                 </div>
-              </div> : <div className='col'> Loading... </div> }
+              </div> : <p> Loading... </p> }
             <div className="col-3"></div>
           </div>
         </div>

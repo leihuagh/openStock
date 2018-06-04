@@ -97,10 +97,6 @@ h2 {
   border-bottom: 2px solid #7d817ebb;
 }
 
-h2 {
-  border-bottom: 2px solid #7d817ebb;
-}
-
 body {
   background-color: #0f0f0f;
   font-size: 36px;
@@ -209,7 +205,12 @@ footer a{
   padding: 10px;
   margin: 10px;
   font-size: 24px;
+  color: white;
+}
 
+.peers-card:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .peers-card span {
