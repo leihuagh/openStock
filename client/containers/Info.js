@@ -96,6 +96,8 @@ class Info extends React.Component {
           peerData: json
         });
       })
+    }).catch(function(){
+      this.getPeers();
     });
   }
 
@@ -187,7 +189,7 @@ class Info extends React.Component {
       <Link to={"/Stocks?symbol=" + peer.toString()} className="col peers-card" key={peer.toString()}>
           <span> {peer} </span>
           <br/>
-          <span>${this.state.peerData[peer]['quote']['latestPrice']}</span>
+          {this.state.peerData[peer] === undefined ? <span>NULL</span>  : <span>${this.state.peerData[peer]['quote']['latestPrice']}</span>}
       </Link>
     );
       
