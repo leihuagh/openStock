@@ -9,11 +9,15 @@ I also wanted to learn how to utilize d3js to build dynamic and responsive graph
 * ReactJS: React-Router
 * D3JS, Bootstrap
 * NodeJS: ExpressJS BCrypt
-* PostGreSQL
+* PostGreSQL: Sequelize ORM
 * HTML, CSS, Javascript, ES6
 * IEX EXCHANGE Developer API
 # Demo 
 <p align="center">
-  <img src="./public/demo-search.gif" width="350"/>
+  <img src="./public/demo-searcher.gif" width="350"/>
   <img src="./public/demo-ui.gif" width="350"/>
+  <img src="./public/demo-peers.gif" width="350"/>
 </p>
+# How To Run
+NPM Install
+NPM Start
