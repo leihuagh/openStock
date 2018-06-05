@@ -17,6 +17,6 @@ NPM Install
 NPM Start
 # Demo 
 <p align="center">
-  <img src="./public/demo-ui.gif" width="350"/>
-  <img src="./public/demo-peers.gif" width="350"/>
+  <img src="./public/demo-ui.gif" width="350" height="200"/>
+  <img src="./public/demo-peers.gif" width="350" height="200"/>
 </p>
