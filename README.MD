@@ -12,12 +12,12 @@ I also wanted to learn how to utilize d3js to build dynamic and responsive graph
 * PostGreSQL: Sequelize ORM
 * HTML, CSS, Javascript, ES6
 * IEX EXCHANGE Developer API
+# How To Run
+NPM Install
+NPM Start
 # Demo 
 <p align="center">
   <img src="./public/demo-searcher.gif" width="350"/>
   <img src="./public/demo-ui.gif" width="350"/>
   <img src="./public/demo-peers.gif" width="350"/>
 </p>
-# How To Run
-NPM Install
-NPM Start
