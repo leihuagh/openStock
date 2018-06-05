@@ -13,8 +13,8 @@ I also wanted to learn how to utilize d3js to build dynamic and responsive graph
 * HTML, CSS, Javascript, ES6
 * IEX EXCHANGE Developer API
 # How To Run
-NPM Install
-NPM Start
+* NPM Install
+* NPM Start
 # Demo 
 <p align="center">
   <img src="./public/demo-ui.gif" width="350" height="200"/>
