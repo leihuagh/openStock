@@ -12,9 +12,6 @@ class Header extends React.Component {
     return (
       <header>
         <Link to='/' className='logo-btn'>OpenStock</Link>
-        {/* <div className='search-header'>
-          <Search/>
-        </div> */}
       </header>
     );
   }
