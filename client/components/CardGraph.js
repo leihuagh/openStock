@@ -20,41 +20,81 @@ export default class CardGraph extends React.Component {
   }
 
   // Fetches url and gets information from the url.
-  createGraph() {    
-    var svg = d3.select("svg"),
-        margin = {top: 20, right: 20, bottom: 30, left: 50},
+  createGraph() {
+    // Parse and edit.
+    let timeParser = d3.timeParse("%Y%m%d%H:%M");
+    let d = this.props.d;
+    let times = [];
+    let prices = [];
+
+    for (let i = 0; i < d.length; i++) {
+      if (d[i]["marketNumberOfTrades"] == 0 || d[i]["marketAverage"] == -1) {
+        d.splice(i, 1);
+        i--;
+        continue;
+      }
+
+      d[i]["close"] = d[i]["marketAverage"];
+      d[i]["date"] = timeParser(d[i]["date"] + d[i]["minute"]);
+      times.push(d[i]["date"]);
+      prices.push(d[i]["close"]);
+    }
+
+    var svg = d3.select("." + this.props.name + " svg"),
+        margin = {top: 20, right: 20, bottom: 20, left: 20},
         width = +svg.attr("width") - margin.left - margin.right,
         height = +svg.attr("height") - margin.top - margin.bottom,
         g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+    
     let x = d3.scaleTime().rangeRound([0, width]);
     let y = d3.scaleLinear().rangeRound([height, 0]);
+    
+    x.domain(d3.extent(times, function(data) { return data; }));
+    y.domain(d3.extent(prices, function(data) { return data; }));
 
     let line = d3.line()
         .x(function(d) { return x(d["date"])})
         .y(function(d) { return y(d["close"])});
     
-    g.append("path")
-    .datum(this.props.d)
-    .attr("fill", "none")
-    .attr("stroke", "#170f11")
-    .attr("stroke-linejoin", "round")
-    .attr("stroke-linecap", "round")
-    .attr("stroke-width", 1.5)
-    .attr("d", line);
+    if (this.props.changePercent > 0) {
+      g.append("path")
+      .datum(d)
+      .attr("fill", "none")
+      .attr("stroke", "green")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+    } else {
+      g.append("path")
+      .datum(d)
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+    }
+
   }
 
   removeGraph() {
-    var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var svg = d3.select("." + this.props.name + " svg"),
+    margin = {top: 20, right: 20, bottom: 20, left: 20},
     g = svg.select("g");
     g.remove();
   }
 
   render() {
+    let latestPrice = Math.round((this.props.latestPrice)*100)/100;
+    let changePercent = Math.round((this.props.changePercent)*100)/100;
 
     return (
-      <svg width="200" height="200" className="chartGraph"></svg>
+      <div className={this.props.name}>
+        <h2> {this.props.companyName} </h2> 
+        <svg width="250" height="75" preserveAspectRatio="xMinYMin meet" viewBox="0 0 250 75"></svg>
+        <span className='small'> ${latestPrice} || {changePercent}% </span>             
+      </div>
     );
   }
 }
