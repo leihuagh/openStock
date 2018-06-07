@@ -95,7 +95,8 @@ export default class CardGraph extends React.Component {
       <Link to={"/Stocks?symbol=" + this.props.name} className={this.props.name}>
         <h2> {this.props.companyName} </h2> 
         <svg width="250" height="75" preserveAspectRatio="xMinYMin meet" viewBox="0 0 250 75"></svg>
-        <span className='small'> ${latestPrice} || {changePercent}% </span>               
+        <span className='small left'> ${latestPrice} </span> 
+        { changePercent > 0 ? <span className='small right green'> +{changePercent}% </span> : <span className='small right red'> {changePercent}% </span> }
       </Link>
     );
   }
