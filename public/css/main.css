@@ -102,8 +102,6 @@ body {
 }
 
 svg {
-  background-color: #0e090b;
-  color: #2e1760;
   margin-top: 10px;
 }
 
@@ -208,6 +206,27 @@ footer a{
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+.card-stock {
+  margin: 5px;
+  background-color: #0e090b;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
+  user-select: none;
+}
+
+.card-stock:hover {
+  background-color: #0f080bbd;
+}
+
+.card-stock a {
+  color: white;
+}
+
+.card-stock a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .chartGraph {
   background-color: #0e090b;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -291,22 +310,4 @@ footer a{
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
-}
-
-@media (min-width: 576px) { 
-  .home h1 {
-    font-size: 48px;
-  }
-}
-
-@media (min-width: 768px) { 
-
-}
-
-@media (min-width: 992px) { 
-
-}
-
-@media (min-width: 1200px) {
-
 }

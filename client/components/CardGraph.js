@@ -1,6 +1,8 @@
 import React from 'react';
 import * as d3 from "d3";
 
+import { Link } from 'react-router-dom'
+
 export default class CardGraph extends React.Component {
   constructor(props){
     super(props);
@@ -87,14 +89,14 @@ export default class CardGraph extends React.Component {
 
   render() {
     let latestPrice = Math.round((this.props.latestPrice)*100)/100;
-    let changePercent = Math.round((this.props.changePercent)*100)/100;
+    let changePercent = Math.round((this.props.changePercent)*10000)/100;
 
     return (
-      <div className={this.props.name}>
+      <Link to={"/Stocks?symbol=" + this.props.name} className={this.props.name}>
         <h2> {this.props.companyName} </h2> 
         <svg width="250" height="75" preserveAspectRatio="xMinYMin meet" viewBox="0 0 250 75"></svg>
-        <span className='small'> ${latestPrice} || {changePercent}% </span>             
-      </div>
+        <span className='small'> ${latestPrice} || {changePercent}% </span>               
+      </Link>
     );
   }
 }
