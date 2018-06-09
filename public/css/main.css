@@ -274,6 +274,10 @@ footer a{
   color: red;
 }
 
+.market text {
+  fill: white;
+}
+
 /** Tobias Sahlin's Spinner CSS **/
 .spinner {
   margin: 100px auto;
