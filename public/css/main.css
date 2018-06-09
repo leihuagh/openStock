@@ -32,6 +32,10 @@ header a:hover {
   border-radius: 5px; 
 }
 
+.market {
+  margin-bottom: 20px !important;
+}
+
 .search {
   width: 500px;
   background-color: white;
@@ -248,6 +252,10 @@ footer a{
 
 .right {
   float: right;
+}
+
+.large {
+  font-size: 48px;
 }
 
 .small {

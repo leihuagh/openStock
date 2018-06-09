@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import RadialBarGraph from '../components/RadialBarGraph.js';
+import StackedBarGraph from '../components/StackedBarGraph.js';
 import CardGraph from '../components/CardGraph.js';
 import Spinner from '../components/Spinner.js';
 import Search from '../components/Search.js';
@@ -13,25 +13,27 @@ class Home extends React.Component {
     super(props);
 
     this.getExchanges = this.getExchanges.bind(this);
+    this.getMarket = this.getMarket.bind(this);
 
     this.state = {
       stocksFetched: false,
+      marketFetched: false,
       stocks: [],
-      stocksData: {}
+      stocksData: {},
+      marketData: {}
     }
   }
 
   componentDidMount() {
     this.getExchanges();
+    this.getMarket();
   }
 
   getExchanges() {
-    let parent = this;
-
     // API CALL
-    // Seperate symbols with a,b,c
     // https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb&types=quote,chart&range=1d
     // Get Exchanges and batch call.
+    let parent = this;    
     fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=NDAQ,SPY,DIA&types=quote,chart&range=1d', {
       method: 'GET',
     }).then(function(data) {
@@ -47,18 +49,37 @@ class Home extends React.Component {
     });
   }
 
+  getMarket() {
+    // API CALL
+    // https://api.iextrading.com/1.0/market
+    let parent = this;
+    fetch('https://api.iextrading.com/1.0/market', {
+      method: 'GET',
+    }).then(function(data) {
+      return data.json()
+    }).then(function(json) {
+      parent.setState({
+        marketFetched: true,
+        marketData: json
+      });
+    }).catch(function(){
+
+    });
+  }
+
   render() {
-    console.log(this.state.stocksData);
-    let NDAQ = this.state.stocksData['NDAQ'];
-    let SPY = this.state.stocksData['SPY'];
-    let DIA = this.state.stocksData['DIA'];
+    console.log(this.state);
+    const NDAQ = this.state.stocksData['NDAQ'];
+    const DIA = this.state.stocksData['DIA'];
+    const SPY = this.state.stocksData['SPY'];
+
     return (
       <div className="container-fluid">
           <div className="row">
             <div className="col-3"></div>
-            <div className="col-6 card">
-              <h2> The Market </h2>
-              <RadialBarGraph/>
+            <div className="col-6 market card">
+              <h2 className='large'> The Market </h2>
+              {this.state.marketFetched ? <StackedBarGraph name='market'  d={this.state.marketData}/> : <Spinner/> }
             </div>
             <div className="col-3"></div>
           </div>
