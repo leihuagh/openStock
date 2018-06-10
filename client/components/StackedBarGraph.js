@@ -12,7 +12,6 @@ export default class StackedBarGraph extends React.Component {
     }
 
     createBarGraph() {
-        console.log(this.props.d);
         var svg = d3.select("." + this.props.name + " "  + " svg");
         var margin = {top: 20, right: 20, bottom: 20, left: 40},
         width = +svg.attr("width") - margin.left - margin.right,

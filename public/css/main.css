@@ -279,6 +279,23 @@ footer a{
   fill: white;
 }
 
+.news-card {
+  background-color: #0e090b;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.news-card h2 {
+  font-size: 18px;
+}
+
+.news-card a {
+  color: white;
+  font-size: 12px;
+  text-align: left;
+}
+
 /** Tobias Sahlin's Spinner CSS **/
 .spinner {
   margin: 100px auto;

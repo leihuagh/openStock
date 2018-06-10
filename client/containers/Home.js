@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import StackedBarGraph from '../components/StackedBarGraph.js';
 import CardGraph from '../components/CardGraph.js';
+import NewsCard from '../components/NewsCard.js';
 import Spinner from '../components/Spinner.js';
 import Search from '../components/Search.js';
 
@@ -14,19 +15,23 @@ class Home extends React.Component {
 
     this.getExchanges = this.getExchanges.bind(this);
     this.getMarket = this.getMarket.bind(this);
+    this.getNews = this.getNews.bind(this);
 
     this.state = {
       stocksFetched: false,
       marketFetched: false,
+      newsFetched: false,
       stocks: [],
       stocksData: {},
-      marketData: {}
+      marketData: {},
+      newsData: {}
     }
   }
 
   componentDidMount() {
     this.getExchanges();
     this.getMarket();
+    this.getNews();
   }
 
   getExchanges() {
@@ -67,8 +72,25 @@ class Home extends React.Component {
     });
   }
 
+  getNews() {
+    // API CALL
+    // https://api.iextrading.com/1.0/stock/market/news
+    let parent = this;
+    fetch('https://api.iextrading.com/1.0/stock/market/news', {
+      method: 'GET',
+    }).then(function(data) {
+      return data.json()
+    }).then(function(json) {
+      parent.setState({
+        newsFetched: true,
+        newsData: json
+      });
+    }).catch(function(){
+
+    });
+  }
+
   render() {
-    console.log(this.state);
     const NDAQ = this.state.stocksData['NDAQ'];
     const DIA = this.state.stocksData['DIA'];
     const SPY = this.state.stocksData['SPY'];
@@ -98,7 +120,13 @@ class Home extends React.Component {
             <div className="col"></div>
             <div className="col"></div>
           </div>
-          <div className="row"></div>
+          <div className="row">
+            <div className='col-3'></div>
+            <div className='col-6'>
+              {this.state.newsFetched ? <NewsCard data={this.state.newsData}/> : <Spinner/> }
+            </div>
+            <div className='col-3'></div>
+          </div>
         </div>
     );
   }
