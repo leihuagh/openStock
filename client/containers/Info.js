@@ -7,6 +7,7 @@ import Company from '../components/Company.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
 import Spinner from '../components/Spinner.js';
+import NewsCard from '../components/NewsCard.js';
 
 
 class Info extends React.Component {
@@ -16,10 +17,12 @@ class Info extends React.Component {
     this.makeApiCall = this.makeApiCall.bind(this);
     this.getCompanyInfo = this.getCompanyInfo.bind(this);
     this.getPeers = this.getPeers.bind(this);
+    this.getNews = this.getNews.bind(this);
 
     this.state = {
       fetched: false,
       companyFetched: false,
+      newsFetched: false,
       peersFetched: false,
       hasError: false,
       companyInfo: "",
@@ -29,7 +32,8 @@ class Info extends React.Component {
       prices: [],
       d: [],
       peers: [],
-      peerData: {}
+      peerData: {},
+      newsData: {}
     }
 
   }
@@ -38,6 +42,7 @@ class Info extends React.Component {
     this.makeApiCall();
     this.getCompanyInfo();
     this.getPeers();
+    this.getNews();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,6 +65,7 @@ class Info extends React.Component {
       this.changeActive('1d');
       this.getCompanyInfo();
       this.getPeers();
+      this.getNews();
     }
   }
 
@@ -114,6 +120,24 @@ class Info extends React.Component {
         companyInfo: json["description"],
         companyName: json["companyName"]
       })
+    });
+  }
+
+  getNews() {
+    // API CALL
+    // https://api.iextrading.com/1.0/stock/market/news
+    let parent = this;
+    fetch("https://api.iextrading.com/1.0/stock/" + this.props.symbol + "/news", {
+      method: 'GET',
+    }).then(function(data) {
+      return data.json()
+    }).then(function(json) {
+      parent.setState({
+        newsFetched: true,
+        newsData: json
+      });
+    }).catch(function(){
+
     });
   }
 
@@ -248,6 +272,13 @@ class Info extends React.Component {
                 <Spinner/> 
               </div>}
             <div className="col-3"></div>
+          </div>
+          <div className="row">
+            <div className='col-3'></div>
+            <div className='col-6'>
+              {this.state.newsFetched ? <NewsCard data={this.state.newsData}/> : <Spinner/> }
+            </div>
+            <div className='col-3'></div>
           </div>
         </div>
       );

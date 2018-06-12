@@ -22,7 +22,7 @@ export default class StackedBarGraph extends React.Component {
                 .paddingInner(0.1);
         var x1 = d3.scaleBand().padding(0.05);
         var y = d3.scaleLinear().rangeRound([height, 0]);
-        var z = d3.scaleOrdinal().range(["#fffacd", "lightgreen", "lightblue"]);
+        var z = d3.scaleOrdinal().range(["#b19cd9", "lightgreen", "lightblue"]);
 
         var keys = ['tapeA', 'tapeB', 'tapeC'];
         x0.domain(this.props.d.map(function(d) { return d['mic']; }));

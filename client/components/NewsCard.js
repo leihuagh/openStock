@@ -8,11 +8,13 @@ class NewsCard extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const news = this.props.data.map((e, i) =>
         <div className='news-card' key={i}>
             <a href={e['url']}>
                 <h2> {e['headline']} </h2>
                 <p> {e['summary']} </p>
+                <p> {e['source']} </p>
             </a>
         </div>
     )
