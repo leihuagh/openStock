@@ -22,8 +22,7 @@ export default class StackedBarGraph extends React.Component {
                 .paddingInner(0.1);
         var x1 = d3.scaleBand().padding(0.05);
         var y = d3.scaleLinear().rangeRound([height, 0]);
-        var z = d3.scaleOrdinal().range(["#b19cd9", "lightgreen", "lightblue"]);
-
+        var z = d3.scaleOrdinal().range(["#3066BE", "#AEECEF", "#119DA4"]);
         var keys = ['tapeA', 'tapeB', 'tapeC'];
         x0.domain(this.props.d.map(function(d) { return d['mic']; }));
         x1.domain(keys).rangeRound([0, x0.bandwidth()]);
@@ -42,7 +41,7 @@ export default class StackedBarGraph extends React.Component {
           .attr("width", x1.bandwidth())
           .attr("height", function(d) { return height - y(d.value); })
           .attr("fill", function(d) { return z(d.key); });
-    
+
         g.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + height + ")")
@@ -80,6 +79,31 @@ export default class StackedBarGraph extends React.Component {
             .attr("y", 9.5)
             .attr("dy", "0.32em")
             .text(function(d) { return d; });
+
+        g.append("text")
+        .attr("class", "hover-text")
+        .style("stroke", "white")
+        .style("fill", "rgba(224, 224, 224, 0.178)")  
+        .style("display", "none")
+        .attr("x", 0)     
+        .attr("y", 0);    
+
+        // SVG select all rectangles and mouseover.
+        svg.on("mouseover", function() {
+            const xCoordinate = d3.mouse(this)[0];
+            const yCoordinate = d3.mouse(this)[1];
+            svg.selectAll('rect')
+            .on("mouseover", function(d) {
+                svg.select(".hover-text").style("display", "");
+                svg.select(".hover-text")
+                .attr("x", xCoordinate - margin.left)     
+                .attr("y", yCoordinate - margin.top)
+                .text(d.value);
+            })
+            .on("mouseout", function(d) {
+                svg.select(".hover-text").style("display", "none");
+            });
+        });
     }
 
     render() {
