@@ -6,7 +6,6 @@ import StackedBarGraph from '../components/StackedBarGraph.js';
 import CardGraph from '../components/CardGraph.js';
 import NewsCard from '../components/NewsCard.js';
 import Spinner from '../components/Spinner.js';
-import Search from '../components/Search.js';
 
 class Home extends React.Component {
 

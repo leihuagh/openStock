@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import StatisticsTable from '../components/StatisticsTable.js'
+import Spinner from '../components/Spinner.js';
 
 class StocksStatistics extends React.Component {
 
@@ -15,14 +16,18 @@ class StocksStatistics extends React.Component {
       losers: [],
       active: []
     }
-    this.getGainersLosersActive = this.getGainersLosersActive.bind(this);
+    this.getGainers = this.getGainers.bind(this);
+    this.getLosers = this.getLosers.bind(this);
+    this.getActive = this.getActive.bind(this);
   }
 
   componentDidMount() {
-    this.getGainersLosersActive();
+    this.getGainers();
+    this.getLosers();
+    this.getActive();  
   }
 
-  getGainersLosersActive() {
+  getGainers() {
     let parent = this;
     fetch("https://api.iextrading.com/1.0/stock/market/list/gainers", { method: "GET", }).then(function(data) {
       return data.json()
@@ -32,7 +37,10 @@ class StocksStatistics extends React.Component {
         gainers: json
       });
     });
+  }
 
+  getLosers() {
+    let parent = this;
     fetch("https://api.iextrading.com/1.0/stock/market/list/losers", { method: "GET", }).then(function(data) {
       return data.json()
     }).then(function(json) {
@@ -42,6 +50,10 @@ class StocksStatistics extends React.Component {
       });
     });
 
+  }
+
+  getActive() {
+    let parent = this;
     fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive", { method: "GET", }).then(function(data) {
       return data.json()
     }).then(function(json) {
@@ -56,10 +68,29 @@ class StocksStatistics extends React.Component {
     console.log(this.state);
     return (
       <div className='StocksStats'>
-        <StatisticsTable name='Gainers'/>
-        <StatisticsTable name='Losers'/>
-        <StatisticsTable name='Most Active'/>
-        <StatisticsTable name='Stocks'/>
+        <div className="row">
+          <div className='col-4'>
+            { this.state.fetchedActive ? <StatisticsTable name='Most Active' data={this.state.active}/> : <Spinner/> }
+          </div>
+          <div className='col-4'>
+            { this.state.fetchedGainers ? <StatisticsTable name='Gainers' data={this.state.gainers}/> : <Spinner/> }          
+          </div>
+          <div className='col-4'>
+            { this.state.fetchedLosers ? <StatisticsTable name='Losers' data={this.state.losers}/> : <Spinner/> }
+          </div>
+        </div>
+        <div className="row">
+          <div className='col-4'></div>
+          <div className='col-4'>
+          </div>
+          <div className='col-4'></div>
+        </div>
+        <div className="row">
+          <div className='col-4'></div>
+          <div className='col-4'>
+          </div>
+          <div className='col-4'></div>        
+        </div>        
       </div>
     );
   }

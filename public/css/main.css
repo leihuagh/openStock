@@ -297,6 +297,14 @@ footer a{
   text-align: left;
 }
 
+th {
+  font-size: 28px;
+}
+
+td {
+  font-size: 24px;
+}
+
 /** Tobias Sahlin's Spinner CSS **/
 .spinner {
   margin: 100px auto;
