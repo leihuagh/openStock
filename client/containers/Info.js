@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import * as d3 from "d3";
 
 import Company from '../components/Company.js';
+import CardGraph from '../components/CardGraph.js';
 import Graph from '../components/Graph.js';
 import Statistics from '../components/Statistics.js';
 import Spinner from '../components/Spinner.js';
+import NewsCard from '../components/NewsCard.js';
 
 
 class Info extends React.Component {
@@ -16,10 +18,12 @@ class Info extends React.Component {
     this.makeApiCall = this.makeApiCall.bind(this);
     this.getCompanyInfo = this.getCompanyInfo.bind(this);
     this.getPeers = this.getPeers.bind(this);
+    this.getNews = this.getNews.bind(this);
 
     this.state = {
       fetched: false,
       companyFetched: false,
+      newsFetched: false,
       peersFetched: false,
       hasError: false,
       companyInfo: "",
@@ -29,7 +33,8 @@ class Info extends React.Component {
       prices: [],
       d: [],
       peers: [],
-      peerData: {}
+      peerData: {},
+      newsData: {}
     }
 
   }
@@ -38,6 +43,7 @@ class Info extends React.Component {
     this.makeApiCall();
     this.getCompanyInfo();
     this.getPeers();
+    this.getNews();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,6 +66,7 @@ class Info extends React.Component {
       this.changeActive('1d');
       this.getCompanyInfo();
       this.getPeers();
+      this.getNews();
     }
   }
 
@@ -86,7 +93,7 @@ class Info extends React.Component {
         s += (symbol + ",")
       });
 
-      fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=' + s + '&types=quote', {
+      fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=' + s + '&types=quote,chart&range=1d', {
         method: 'GET',
       }).then(function(data) {
         return data.json()
@@ -114,6 +121,24 @@ class Info extends React.Component {
         companyInfo: json["description"],
         companyName: json["companyName"]
       })
+    });
+  }
+
+  getNews() {
+    // API CALL
+    // https://api.iextrading.com/1.0/stock/market/news
+    let parent = this;
+    fetch("https://api.iextrading.com/1.0/stock/" + this.props.symbol + "/news", {
+      method: 'GET',
+    }).then(function(data) {
+      return data.json()
+    }).then(function(json) {
+      parent.setState({
+        newsFetched: true,
+        newsData: json
+      });
+    }).catch(function(){
+
     });
   }
 
@@ -184,14 +209,13 @@ class Info extends React.Component {
   }
 
   render() {
-    const peers = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer) =>
-      <Link to={"/Stocks?symbol=" + peer.toString()} className="col peers-card" key={peer.toString()}>
-          <span> {peer} </span>
-          <br/>
-          {this.state.peerData[peer] === undefined ? <span>NULL</span>  : <span>${this.state.peerData[peer]['quote']['latestPrice']}</span>}
-      </Link>
+    const peerGraphs = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer, i) =>
+      <div className='card'>
+        <CardGraph key={i} name={peer} companyName={peer} d={this.state.peerData[peer].chart} latestPrice={this.state.peerData[peer].quote.latestPrice} changePercent={this.state.peerData[peer].quote.changePercent} 
+          volume={this.state.peerData[peer].quote.latestVolume} width="150" height="75"/>
+      </div>
     );
-      
+    
     if (this.state.hasError) {
       return (
         <div className="container-fluid">
@@ -240,14 +264,21 @@ class Info extends React.Component {
             <div className="col-3"></div>
             {this.state.peersFetched ? 
               <div className="col-6">
-                <div className='row'>
-                  {peers} 
+                <div className=''>
+                  {peerGraphs} 
                 </div>
               </div> : 
               <div className='col'>
                 <Spinner/> 
               </div>}
             <div className="col-3"></div>
+          </div>
+          <div className="row">
+            <div className='col-3'></div>
+            <div className='col-6'>
+              {this.state.newsFetched ? <NewsCard data={this.state.newsData}/> : <Spinner/> }
+            </div>
+            <div className='col-3'></div>
           </div>
         </div>
       );

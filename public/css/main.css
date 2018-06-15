@@ -9,7 +9,7 @@ h1 {
 
 header {
   text-align: left;
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   margin-bottom: 20px;
   padding: 5px;
 }
@@ -23,25 +23,22 @@ header a:hover {
   text-decoration: none;
 }
 
-.home {
-  left: 50%;
-  margin: 200px;
+.home p {
+  font-size: 80px;
 }
 
-.home h1 {
-  text-align: center;
-  position: relative;
-  font-size: 64px;    
-  margin: 20px;
+.h-search {
+  float: right;
+  border-radius: 5px; 
+}
+
+.market {
+  margin-bottom: 20px !important;
 }
 
 .search {
   width: 500px;
   background-color: white;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  margin-left: -240px;  
 }
 
 .search button:hover {
@@ -58,7 +55,7 @@ input {
 .error {
   width: 600px;
   height: 300px;
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
@@ -67,7 +64,7 @@ input {
 }
 
 .statistics {
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   color: #e0e0e0;
   font-size: 24px;
   margin: 30px;
@@ -75,8 +72,13 @@ input {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+.statisticsTable {
+  padding: 5px;
+  margin: 10px !important;
+}
+
 .company {
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   color: #e0e0e0;
   font-size: 20px;
   margin: 30px;
@@ -89,6 +91,7 @@ input {
 
 h2 {
   border-bottom: 2px solid #7d817ebb;
+  color: white;
 }
 
 body {
@@ -102,15 +105,13 @@ body {
 .Stock {
   max-width: 900px;
   max-height: 500px;
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   padding: 20px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   text-align: center;
 }
 
 svg {
-  background-color: #0e090b;
-  color: #2e1760;
   margin-top: 10px;
 }
 
@@ -158,7 +159,7 @@ button:focus {
 
 .signin {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   width: 300px;
   height: 600px;
   padding: 20px;
@@ -194,8 +195,9 @@ footer a{
   left: 0;
 }
 
+
 .peers-card {
-  background-color: #0e090b;
+  background-color: #0c0a0a;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   padding: 10px;
   margin: 10px;
@@ -209,7 +211,103 @@ footer a{
 }
 
 .card {
-  background-color: #0e090b;
+  margin: 5px;
+  background-color: #0c0a0a;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card-stock {
+  margin: 5px;
+  background-color: #0c0a0a;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
+  user-select: none;
+}
+
+.card-stock:hover {
+  background-color: #0f080bbd;
+}
+
+.card-stock a {
+  color: white;
+}
+
+.card-stock a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.chartGraph {
+  background-color: #0c0a0a;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.svg-container-card {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-bottom: calc(100% * 3 / 4);
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.large {
+  font-size: 48px;
+}
+
+.small {
+  font-size: 32px;
+}
+
+.tiny {
+  font-size: 30px;
+}
+
+.green {
+  color: rgb(33, 192, 33);
+}
+
+.red {
+  color: red;
+}
+
+.market text {
+  fill: white;
+}
+
+.news-card {
+  background-color: #0c0a0a;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.news-card h2 {
+  font-size: 18px;
+}
+
+.news-card a {
+  color: white;
+  font-size: 12px;
+  text-align: left;
+}
+
+th {
+  font-size: 28px;
+}
+
+td {
+  font-size: 24px;
 }
 
 /** Tobias Sahlin's Spinner CSS **/
@@ -264,22 +362,4 @@ footer a{
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
-}
-
-@media (min-width: 576px) { 
-  .home h1 {
-    font-size: 48px;
-  }
-}
-
-@media (min-width: 768px) { 
-
-}
-
-@media (min-width: 992px) { 
-
-}
-
-@media (min-width: 1200px) {
-
 }
