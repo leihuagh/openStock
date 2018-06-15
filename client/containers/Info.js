@@ -210,7 +210,7 @@ class Info extends React.Component {
 
   render() {
     const peerGraphs = this.state.peers > 0 ?  <div className="col peers-card"> No Peers </div> : this.state.peers.map((peer, i) =>
-      <div className=''>
+      <div className='card'>
         <CardGraph key={i} name={peer} companyName={peer} d={this.state.peerData[peer].chart} latestPrice={this.state.peerData[peer].quote.latestPrice} changePercent={this.state.peerData[peer].quote.changePercent} 
           volume={this.state.peerData[peer].quote.latestVolume} width="150" height="75"/>
       </div>
@@ -264,7 +264,7 @@ class Info extends React.Component {
             <div className="col-3"></div>
             {this.state.peersFetched ? 
               <div className="col-6">
-                <div className='row card'>
+                <div className=''>
                   {peerGraphs} 
                 </div>
               </div> : 

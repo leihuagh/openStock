@@ -14,7 +14,9 @@ class StatisticsTable extends React.Component {
               {e['symbol']} 
             </a>
           </td>
+          <td> {e['latestPrice']} </td>
           {e['change']> 0 ? <td className='green'> +{e['change']} </td> : <td className='red'> {e['change']} </td>}
+          {e['changePercent']> 0 ? <td className='green'> +{e['changePercent']}% </td> : <td className='red'> {e['changePercent']}%  </td>}
           <td> {e['latestVolume']} </td>
         </tr>
 
@@ -23,10 +25,16 @@ class StatisticsTable extends React.Component {
       <div className='statisticsTable card'>
         <h2> {this.props.name} </h2>
         <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>Change ($)</th>
+              <th>Change (%)</th>
+              <th>Volume (24h)</th>
+            </tr>
+          </thead>
           <tbody>
-            <th>Symbol</th>
-            <th>Change</th>
-            <th>Volume (24h)</th>
             {stats}
           </tbody>
         </table>

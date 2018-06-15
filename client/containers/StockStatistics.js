@@ -69,27 +69,25 @@ class StocksStatistics extends React.Component {
     return (
       <div className='StocksStats'>
         <div className="row">
-          <div className='col-4'>
+          <div className='col-3'></div>
+          <div className='col-6'>
             { this.state.fetchedActive ? <StatisticsTable name='Most Active' data={this.state.active}/> : <Spinner/> }
           </div>
-          <div className='col-4'>
+          <div className='col-3'></div>
+        </div>
+        <div className="row">
+          <div className='col-3'></div>
+          <div className='col-6'>
             { this.state.fetchedGainers ? <StatisticsTable name='Gainers' data={this.state.gainers}/> : <Spinner/> }          
           </div>
-          <div className='col-4'>
+          <div className='col-3'></div>
+        </div>
+        <div className="row">
+          <div className='col-3'></div>
+          <div className='col-6'>
             { this.state.fetchedLosers ? <StatisticsTable name='Losers' data={this.state.losers}/> : <Spinner/> }
           </div>
-        </div>
-        <div className="row">
-          <div className='col-4'></div>
-          <div className='col-4'>
-          </div>
-          <div className='col-4'></div>
-        </div>
-        <div className="row">
-          <div className='col-4'></div>
-          <div className='col-4'>
-          </div>
-          <div className='col-4'></div>        
+          <div className='col-3'></div>        
         </div>        
       </div>
     );
