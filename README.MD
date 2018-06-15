@@ -17,6 +17,7 @@ I also wanted to learn how to utilize d3js to build dynamic and responsive graph
 * NPM Start
 # Demo 
 <p align="center">
-  <img src="./public/demo-ui.gif" width="350" height="200"/>
-  <img src="./public/demo-peers.gif" width="350" height="200"/>
+  <img src="./public/demo-home-2.gif" width="350" height="200"/>
+  <img src="./public/demo-ui-2.gif" width="350" height="200"/>
+  <img src="./public/demo-stats.gif" width="350" height="200"/>
 </p>
