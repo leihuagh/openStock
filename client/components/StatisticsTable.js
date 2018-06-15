@@ -26,7 +26,7 @@ class StatisticsTable extends React.Component {
           <tbody>
             <th>Symbol</th>
             <th>Change</th>
-            <th>Volume</th>
+            <th>Volume (24h)</th>
             {stats}
           </tbody>
         </table>

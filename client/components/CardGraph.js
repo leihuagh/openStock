@@ -62,7 +62,7 @@ export default class CardGraph extends React.Component {
       g.append("path")
       .datum(d)
       .attr("fill", "none")
-      .attr("stroke", "green")
+      .attr("stroke", "rgb(33, 192, 33)")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
@@ -94,7 +94,7 @@ export default class CardGraph extends React.Component {
     return (
       <Link to={"/Stocks?symbol=" + this.props.name} className={this.props.name}>
         <h2> {this.props.companyName} </h2> 
-        <svg width="250" height="75" preserveAspectRatio="xMinYMin meet" viewBox="0 0 250 75"></svg>
+        <svg width={this.props.width} height={this.props.height} preserveAspectRatio="xMinYMin meet"></svg>
         <span className='small left'> ${latestPrice} </span> 
         { changePercent > 0 ? <span className='small right green'> +{changePercent}% </span> : <span className='small right red'> {changePercent}% </span> }
       </Link>
