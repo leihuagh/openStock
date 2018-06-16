@@ -92,7 +92,7 @@ export default class CardGraph extends React.Component {
     let changePercent = Math.round((this.props.changePercent)*10000)/100;
 
     return (
-      <Link to={"/Stocks?symbol=" + this.props.name} className={this.props.name}>
+      <Link to={"/Stocks?symbol=" + this.props.name} className={this.props.name} onClick={window.scrollTo(0, 0)}>
         <h2> {this.props.companyName} </h2> 
         <svg width={this.props.width} height={this.props.height} preserveAspectRatio="xMinYMin meet"></svg>
         <span className='small left'> ${latestPrice} </span> 

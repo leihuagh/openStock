@@ -188,6 +188,16 @@ footer a{
   vertical-align: top;
   overflow: hidden;
 }
+
+.svg-container-sbg {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  overflow: hidden;
+}
+
 .svg-content {
   display: block;
   position: absolute;
@@ -212,6 +222,7 @@ footer a{
 
 .card {
   margin: 5px;
+  padding: 5px;
   background-color: #0c0a0a;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }

@@ -14,8 +14,8 @@ export default class StackedBarGraph extends React.Component {
     createBarGraph() {
         var svg = d3.select("." + this.props.name + " "  + " svg");
         var margin = {top: 20, right: 20, bottom: 20, left: 40},
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom,
+        width = 800 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom,
         g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         var x0 = d3.scaleBand()
                 .rangeRound([0, width])
@@ -109,8 +109,8 @@ export default class StackedBarGraph extends React.Component {
     render() {
 
         return (
-          <div className={this.props.name}>
-            <svg preserveAspectRatio="xMinYMin meet" width='800' height='350' viewBox="0 0 800 350  "></svg>
+          <div className={"svg-container-sbg " + this.props.name}>
+            <svg classname='svg-content' preserveAspectRatio="xMinYMin meet" viewBox="0 0 800 350"></svg>
           </div>
         );
     }

@@ -99,7 +99,7 @@ class Home extends React.Component {
           <div className="row">
             <div className="col-3"></div>
             <div className="col-6 market card">
-              <h2 className='large'> Stock Market Trading Volume </h2>
+              <h2 className='large'> Market Trading Volume (24h) </h2>
               {this.state.marketFetched ? <StackedBarGraph name='market'  d={this.state.marketData}/> : <Spinner/> }
             </div>
             <div className="col-3"></div>
